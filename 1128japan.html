@@ -1,0 +1,1119 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  MapPin, 
+  Navigation, 
+  Calendar, 
+  CloudSun, 
+  CloudRain, 
+  Sun, 
+  Utensils, 
+  BedDouble, 
+  Camera, 
+  Car, 
+  Info, 
+  BookOpen, 
+  Phone, 
+  Plane, 
+  Wallet,
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  Coffee,
+  Clock,
+  FileText,
+  Flower2,
+  ExternalLink
+} from 'lucide-react';
+
+// --- Mock Data ---
+const tripData = {
+  meta: {
+    title: "山陰山陽・自駕秋旅",
+    dateRange: "2025.11.28 - 2025.12.08",
+    flight: { out: "IT262", in: "IT263" }
+  },
+  days: [
+    {
+      id: 1,
+      date: "11/28 (五)",
+      location: "岡山 ➔ 津山",
+      mainCity: "津山", 
+      spots: [
+        { time: "16:30", name: "岡山機場", type: "transport", note: "抵達，辦理入境" },
+        { 
+          time: "17:30", 
+          name: "機場租車", 
+          type: "transport", 
+          note: "取車出發", 
+          tags: ["查看預約資訊"], 
+          link: "https://maps.app.goo.gl/k3n36FBfJrASq4Rx9",
+          customDetails: [
+            { label: "預約號碼", value: "99992154300", highlight: true },
+            { label: "車型等級", value: "SUV2 YARIS CROSS Hybrid", icon: <Car className="w-4 h-4" /> },
+            { 
+              label: "出發店鋪", 
+              value: "岡山機場店 (TEL：086-294-2100)\n1565 Nichioji, Kita-ku, Okayama-shi, Okayama 701-1131\n岡山市北区日応寺1565",
+              isAddress: true
+            },
+            { 
+              label: "還車店鋪", 
+              value: "岡山站前店\n7-25 Hon-machi, Kita-ku, Okayama-shi, Okayama 700-0901\n岡山市北区本町7-25",
+              isAddress: true
+            },
+            { label: "出發時間", value: "11/28/2025 17:30", icon: <Clock className="w-4 h-4" /> },
+            { label: "還車時間", value: "12/06/2025 16:00", icon: <Clock className="w-4 h-4" /> },
+          ]
+        },
+        { 
+          time: "18:30", 
+          name: "THE SHIROYAMA TERRACE 津山別邸", 
+          type: "hotel", 
+          note: "Check-in。溫泉時間13:30-24:00；6:00-10:00" 
+        },
+        { 
+          time: "19:30", 
+          name: "津山晚餐", 
+          type: "food", 
+          tags: ["必吃美食", "點擊看推薦"], 
+          note: "點擊查看三家推薦餐廳詳細資訊",
+          hideNav: true, 
+          subSpots: [
+            { 
+              name: "Izakaya Osome お染", 
+              note: "步行8m / 居酒屋", 
+              type: "food",
+              link: "https://www.google.com/maps/search/?api=1&query=Izakaya+Osome+Tsuyama"
+            },
+            { 
+              name: "北海", 
+              note: "步行5m", 
+              type: "food",
+              link: "https://www.google.com/maps/search/?api=1&query=Hokkai+Tsuyama"
+            },
+            { 
+              name: "Bokkemon炙家 ぼっけもん", 
+              note: "步行6m", 
+              type: "food",
+              link: "https://www.google.com/maps/search/?api=1&query=Bokkemon+Tsuyama"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 2,
+      date: "11/29 (六)",
+      location: "津山深度遊",
+      mainCity: "津山",
+      spots: [
+        { time: "09:00", name: "津山城 (鶴山公園)", type: "sight", note: "日本百大名城" },
+        { 
+          time: "10:30", 
+          name: "津山洋學資料館", 
+          type: "sight",
+          tags: ["冷知識"],
+          customDetails: [
+            {
+              label: "珈琲的語源",
+              icon: <BookOpen className="w-4 h-4" />,
+              value: "咖啡的荷蘭語是「koffie」，當時的日本人試圖用漢字表記這個外來語，如：可否、可非、架非、哥非乙、黑炒豆等，但都無法被廣泛接受。據聞是直到宇田川榕菴用象徵古代女性花簪的「珈」和貫珠的「琲」兩字，貼切又優雅地形容咖啡果實的模樣，而後成為日本人百年來稱呼這項西方黑茶的通稱。"
+            },
+            {
+              label: "參考文章",
+              value: "閱讀更多關於津山咖啡的故事",
+              linkUrl: "https://hatsumimi-mag.com/2025/02/26/tsuyama001/"
+            }
+          ]
+        },
+        { 
+          time: "11:30", 
+          name: "福壽湯 Cafe Fukujuyu", 
+          type: "coffee", 
+          tags: ["特色建築"],
+          customDetails: [
+            {
+              label: "錢湯變身",
+              icon: <Info className="w-4 h-4" />,
+              value: "這棟始於明治30年的錢湯建築，咖啡店內分為前後兩區。昔日錢湯負責收錢的「番台」，被廣戶先生以新潮的咖啡吧檯重新詮釋。吧檯側面貼滿的舊報紙，以及貼在門內的舊電影海報，都是他整理後方空間時所發現。以前的人會把報紙和海報放在榻榻米下作為除濕之用，意外留下這些珍貴的紙本。如果仔細尋找門上的海報，還能找到昭和40年的3碼電話。"
+            },
+            {
+              label: "特色菜單",
+              icon: <Coffee className="w-4 h-4" />,
+              value: "目前店內提供三款黑咖啡：深焙巴西豆的手沖、愛樂壓濃縮，以及端看店主人當下心情的「即興咖啡」（きまぐれ珈琲）。除此，還有多種花式咖啡、蘇打水與酒精飲料。紅豆和卡士達兩種口味的「鯉魚燒」（コイ焼き）則來自店主的創意。由於津山不靠海、只有河，於是店主把鯛魚燒換成鯉魚燒。"
+            }
+          ]
+        },
+        { 
+          time: "12:30", 
+          name: "日進月步", 
+          type: "food", 
+          tags: ["午餐"], 
+          note: "蕎麥麵料理",
+          link: "https://maps.app.goo.gl/UGV1S3HYVyxNh5Kp7"
+        },
+        { 
+          time: "14:00", 
+          name: "城西浪漫館 (中島病院舊本館)", 
+          type: "sight", 
+          tags: ["建築巡禮"],
+          customDetails: [
+            {
+              label: "建築歷史",
+              icon: <Info className="w-4 h-4" />,
+              value: "這棟美麗的二層木造建築前身為中島醫院，建於1917年。站在入口就能清楚看見，正面中央突出的二樓陽臺、科林斯式柱和上方的圓頂屋頂，典型的歐式建築裝飾。這座建物出自生前在津山留下眾多傑出建築的大工匠池田豐太郎之手。1997年NHK晨間劇《阿久里》還曾在此取景，如今已是津山市的地標建築之一。"
+            }
+          ]
+        },
+        { 
+          time: "15:30", 
+          name: "So's Cafe", 
+          type: "coffee", 
+          link: "https://maps.app.goo.gl/BamJqcxEp4sLSXjT7",
+          customDetails: [
+            {
+              label: "江戶咖啡再現",
+              icon: <Coffee className="w-4 h-4" />,
+              value: "津山洋學資料館參考宇田川榕菴手繪稿重現的當時煮咖啡的器具（コーヒーカン，一種咖啡煮器，在荷蘭語中意指咖啡壺），這裡也有可實際使用的複製品。"
+            },
+            {
+              label: "嚴選豆種",
+              icon: <Info className="w-4 h-4" />,
+              value: "為了重現江戶時代的咖啡風味，店內特地選用和當時相同品種、十七世紀荷蘭人開始在印尼栽種的爪哇阿拉比卡豆。客人可選擇使用複刻當時的咖啡器具（2至5人份），或是手沖萃取。"
+            }
+          ]
+        },
+        { 
+          time: "18:00", 
+          name: "燒肉千惠", 
+          type: "food", 
+          tags: ["必吃美食"], 
+          note: "享用津山著名的肉類料理",
+          link: "https://maps.app.goo.gl/egUkAwXr6KZjpWkk7"
+        },
+        { time: "20:00", name: "THE SHIROYAMA TERRACE 津山別邸", type: "hotel", note: "續住一晚，享受溫泉" }
+      ]
+    },
+    {
+      id: 3,
+      date: "11/30 (日)",
+      location: "津山 ➔ 勝山 ➔ 安來",
+      mainCity: "安來",
+      spots: [
+        {
+          time: "08:30",
+          name: "早餐",
+          type: "food",
+          note: "於飯店內享用早餐，隨後辦理退房"
+        },
+        { 
+          time: "10:00", 
+          name: "勝山町老街保存地區", 
+          type: "sight", 
+          note: "漫步暖簾之町",
+          tags: ["詳細情報"],
+          link: "https://maps.app.goo.gl/HQ1R57tqi9Es1fBg7",
+          customDetails: [
+            {
+              label: "駐車場ナビ",
+              value: "點此開啟停車場導航",
+              isAddress: false,
+              linkUrl: "https://maps.app.goo.gl/mzjtrKQP1Xyjk1au6",
+              icon: <Car className="w-4 h-4" />
+            },
+            {
+              label: "老街特色",
+              icon: <Info className="w-4 h-4" />,
+              value: "漫步のれん門簾之町老街、咖啡小店。這裡是日本第一個指定老街保存區，保留了濃厚的江戶風情。"
+            },
+            {
+              label: "推薦探訪",
+              icon: <Star className="w-4 h-4" />,
+              value: "ひのき草木染織工房 (Hinoki)",
+              linkUrl: "https://www.google.com/maps/search/?api=1&query=Hinoki+Grass+Dyeing+Weaving+Workshop+Katsuyama"
+            }
+          ]
+        },
+        { 
+          time: "12:00", 
+          name: "勝山町午餐", 
+          type: "food", 
+          note: "點擊查看推薦餐廳 (Romantei / 西藏)",
+          tags: ["午餐推薦"],
+          subSpots: [
+            { 
+              name: "Romantei (ろまん亭)", 
+              note: "當地人氣洋食", 
+              type: "food",
+              link: "https://www.google.com/maps/search/?api=1&query=Romantei+Katsuyama"
+            },
+            { 
+              name: "西蔵 (Nishigura)", 
+              note: "酒造改建餐廳，氣氛極佳", 
+              type: "food",
+              link: "https://www.google.com/maps/search/?api=1&query=Nishigura+Restaurant+Katsuyama"
+            }
+          ]
+        },
+        { time: "14:00", name: "玉雲大權現宮", type: "sight" },
+        { 
+          time: "15:00", 
+          name: "新庄宿", 
+          type: "sight", 
+          note: "建議走 R181 轉米子自動車道",
+          link: "https://maps.app.goo.gl/kFW6tb4oNTUqujgR8?g_st=ipc" 
+        },
+        { 
+          time: "17:00", 
+          name: "さぎの湯荘 Saginoyusou", 
+          type: "hotel", 
+          tags: ["重要預約"], 
+          note: "本館2F【朝霧】。一泊二食。在一休.com預定" 
+        }
+      ]
+    },
+    {
+      id: 4,
+      date: "12/01 (一)",
+      location: "足立美術館 ➔ 玉造溫泉",
+      mainCity: "玉造",
+      spots: [
+        { 
+          time: "09:00", 
+          name: "足立美術館", 
+          type: "sight", 
+          tags: ["必去景點"],
+          note: "連續多年日本第一庭園。含魯山人、近現代日本畫收藏。" 
+        },
+        { 
+          time: "12:00", 
+          name: "川西屋", 
+          type: "food", 
+          note: "午餐",
+          link: "https://maps.app.goo.gl/QVei4XzB7Rp83RCn7" 
+        },
+        {
+          time: "13:30",
+          name: "安來市立歷史資料館",
+          type: "sight",
+          link: "https://maps.app.goo.gl/MbDosqLUVPztsptp8",
+          note: "百名城印章、御城印",
+          tags: ["百名城", "御城印"],
+          customDetails: [
+            {
+              label: "攻略",
+              icon: <Info className="w-4 h-4" />,
+              value: "百名城印章、御城印，拿完御城印步行前往月山富田城"
+            },
+            {
+              label: "營業資訊",
+              icon: <Clock className="w-4 h-4" />,
+              value: "週二公休"
+            }
+          ]
+        },
+        { 
+          time: "13:45", 
+          name: "月山富田城遺跡", 
+          type: "sight", 
+          note: "建議車停資料館，步行登山 (約40-60分)",
+          tags: ["難攻不落"],
+          link: "https://maps.app.goo.gl/4kraXq8QHS7x9JGPA",
+          customDetails: [
+             {
+               label: "城郭歷史",
+               icon: <BookOpen className="w-4 h-4" />,
+               value: "月山富田城是戰國大名尼子氏六代的居城，被譽為「難攻不落」的天下名城。這座山城利用了險峻的地形建造，在戰國時代曾抵擋過毛利元就的百萬大軍包圍，是日本百大名城之一。"
+             },
+             {
+               label: "交通建議",
+               icon: <Navigation className="w-4 h-4" />,
+               value: "車輛請停放於安來市立歷史資料館（免費停車），此處為登山入口。攻頂本丸需步行約 40-60 分鐘，請穿著輕便好走的鞋子。"
+             }
+          ]
+        },
+        {
+          time: "15:15",
+          name: "前往界 玉造",
+          type: "transport",
+          note: "步行回資料館取車，前往住宿地點",
+          link: "https://maps.app.goo.gl/Ej2URsYvJAdR2szc7"
+        },
+        { 
+          time: "16:00", 
+          name: "星野集團 界 玉造", 
+          type: "hotel", 
+          tags: ["頂級住宿", "必看表演"],
+          note: "一泊二食。已預約17:30用餐",
+          link: "https://maps.app.goo.gl/FbPtbQFoDyGGCKYf6",
+          customDetails: [
+            {
+              label: "石見神樂 (21:30)",
+              icon: <Star className="w-4 h-4" />,
+              value: "神樂是一種為了酬神所表演的舞蹈，星野集團 界 玉造所表演的曲目《八岐大蛇》，是改編自以出雲地區為舞台的神話故事。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 5,
+      date: "12/02 (二)",
+      location: "松江城 ➔ 出雲",
+      mainCity: "松江",
+      spots: [
+        {
+          time: "08:00",
+          name: "早餐 & 退房",
+          type: "food",
+          note: "於界 玉造享用早餐，隨後開車前往松江城"
+        },
+        { 
+          time: "09:30", 
+          name: "松江城", 
+          type: "sight", 
+          tags: ["國寶", "千鳥城"],
+          link: "https://maps.app.goo.gl/NaKgbmG5FmR6hGAF6",
+          customDetails: [
+            {
+              label: "國寶天守",
+              icon: <Info className="w-4 h-4" />,
+              value: "日本僅存的12座原始城堡之一，因屋頂像千鳥展翅，又名「千鳥城」。建議先逛城再搭船。"
+            },
+            {
+              label: "歷史簡介",
+              icon: <BookOpen className="w-4 h-4" />,
+              value: "松江城始建於1607年，由戰國武將堀尾吉晴耗時5年築成。作為山陰地區唯一現存的天守，它在2015年被指定為日本國寶。雖然明治時代曾經歷廢城令的危機，但在當地有志之士的集資下，天守閣幸免於難。其黑色的外牆與軍事風格的實戰設計是其最大特色。"
+            }
+          ]
+        },
+        { time: "11:00", name: "堀川遊覽船", type: "sight", note: "暖桌船體驗 (需脫鞋)" },
+        { 
+          time: "12:00", 
+          name: "八雲庵", 
+          type: "food", 
+          tags: ["必吃美食"], 
+          note: "鴨南蠻蕎麥麵 (週四休)",
+          link: "https://maps.app.goo.gl/oA4BFKWhzNSqa6BN6"
+        },
+        { 
+          time: "13:00", 
+          name: "塩見縄手", 
+          type: "sight", 
+          note: "日本之道100選，武家屋敷散策",
+          tags: ["歷史街道"],
+          customDetails: [
+            {
+              label: "街道特色",
+              icon: <Info className="w-4 h-4" />,
+              value: "位於松江城北側護城河畔的歷史街道，保留了江戶時代中級武士的宅邸風貌，被選為「日本之道100選」。沿途松樹成蔭，黑瓦白牆的建築鱗次櫛比，景色優美。"
+            },
+            {
+              label: "主要景點",
+              icon: <MapPin className="w-4 h-4" />,
+              value: "這條街上聚集了多個重要文化景點，包括展示武士生活樣貌的「武家屋敷」、怪談文學大師「小泉八雲紀念館」及其舊居，以及松江藩主松平不昧公喜愛的「田部美術館」。"
+            }
+          ]
+        },
+        { 
+          time: "15:00", 
+          name: "鰐淵寺", 
+          type: "sight", 
+          link: "https://maps.app.goo.gl/h8TijRXuDYsQ5abN7",
+          tags: ["古剎"],
+          customDetails: [
+            {
+              label: "歷史由來",
+              icon: <BookOpen className="w-4 h-4" />,
+              value: "鰐淵寺在西元594年創立，可追朔到推古天皇二年（594年），來自長野地區的智春上人在浮浪瀑布祈求天皇眼睛疾病可早日平癒，因此被另建造此寺作為天皇的勅願寺（天皇、上皇發願期許國家與皇室繁盛平安）。"
+            },
+            {
+              label: "名稱傳說",
+              icon: <Info className="w-4 h-4" />,
+              value: "名稱由來據說是因為當時智春上人在祈願時法器掉落於河中，被河中的鱷魚撿回了法器，所以才以「鰐淵」名之。"
+            }
+          ]
+        },
+        { 
+          time: "17:00", 
+          name: "Centurion Hotel & Spa Classic Izumo", 
+          type: "hotel", 
+          note: "Booking。不含早餐" 
+        }
+      ]
+    },
+    {
+      id: 6,
+      date: "12/03 (三)",
+      location: "出雲大社 (神在祭)",
+      mainCity: "出雲",
+      spots: [
+        { 
+          time: "08:30", 
+          name: "ふじひろ珈琲", 
+          type: "food", 
+          note: "早餐",
+          link: "https://maps.app.goo.gl/q4DkHmCbzFi5wz6D7" 
+        },
+        { 
+          time: "09:30", 
+          name: "出雲大社", 
+          type: "sight", 
+          tags: ["重點行程", "神在月"], 
+          note: "參拜禮儀：二禮、四拍手、一禮",
+          customDetails: [
+            {
+              label: "大國主大神",
+              icon: <Info className="w-4 h-4" />,
+              value: "供奉的大神是日本的開拓大神「大國主大神」，相傳他是一位結緣的大神。"
+            },
+            {
+              label: "參拜禮儀",
+              icon: <Star className="w-4 h-4" />,
+              value: "鞠躬2次，拍手4次，再鞠躬1次。",
+              highlight: true
+            },
+            {
+              label: "御砂祈願攻略",
+              icon: <Info className="w-4 h-4" />,
+              value: "先至稻佐之濱取砂（可先備好小袋子），參拜後，將這份砂供奉於素鵞社社殿下方，透過「以砂換砂」的循環，再取回原本供奉於素鵞社的御砂帶回家。帶回家後，可放於門口或重要的位置，作為神明的守護與祝福。"
+            },
+            {
+              label: "夜神樂祈禱",
+              icon: <Clock className="w-4 h-4" />,
+              value: "11月30日～12月5日午後5時，神樂殿將舉辦各種祈禱節日「夜神樂祈禱」。"
+            },
+            {
+              label: "實用連結",
+              value: "境內圖 (PDF)",
+              linkUrl: "https://izumooyashiro.or.jp/wp-content/uploads/2025/10/d20251010_nai.pdf"
+            },
+            {
+              label: "實用連結",
+              value: "境外圖 (PDF)",
+              linkUrl: "https://izumooyashiro.or.jp/wp-content/uploads/2025/10/d20251010_gai.pdf"
+            },
+            {
+              label: "官方網站",
+              value: "出雲大社官網",
+              linkUrl: "https://izumooyashiro.or.jp/"
+            },
+            {
+              label: "參考文章",
+              value: "參拜順序參考",
+              linkUrl: "https://chugoku.letsgojp.com/archives/636605/"
+            }
+          ]
+        },
+        { 
+          time: "12:30", 
+          name: "神門通", 
+          type: "sight", 
+          note: "逛街、吃善哉" 
+        },
+        { 
+          time: "14:00", 
+          name: "日御碕神社", 
+          type: "sight", 
+          note: "紅白相間的美麗神社",
+          link: "https://maps.app.goo.gl/MFeGsKQLW5AkhsbW6"
+        },
+        { 
+          time: "18:00", 
+          name: "晚餐：Yaoyorozu 或 荒木屋", 
+          type: "food", 
+          note: "出雲蕎麥麵名店" 
+        }
+      ]
+    },
+    {
+      id: 7,
+      date: "12/04 (四)",
+      location: "出雲 ➔ 吹屋故鄉村",
+      mainCity: "高梁",
+      spots: [
+        { time: "09:00", name: "出發前往吹屋", type: "transport", note: "車程約 2h 40m，注意山路蜿蜒" },
+        { time: "12:00", name: "Tsukushi", type: "food", note: "湯咖哩 (Soup Curry)" },
+        { 
+          time: "13:30", 
+          name: "吹屋故鄉村", 
+          type: "sight", 
+          stories: [
+            "以「紅瓦」建築群聞名的銅礦小鎮，彷彿時光靜止。"
+          ],
+          note: "參觀：松榮館、舊吹屋小學校、郵局"
+        },
+        { time: "17:00", name: "高梁國際飯店", type: "hotel", note: "Check-in (含早餐)" }
+      ]
+    },
+    {
+      id: 8,
+      date: "12/05 (五)",
+      location: "備中松山城 ➔ 倉敷",
+      mainCity: "倉敷",
+      spots: [
+        { time: "06:00", name: "備中松山城展望台", type: "sight", tags: ["絕景"], note: "早起看雲海日出！" },
+        { 
+          time: "09:00", 
+          name: "備中松山城", 
+          type: "sight", 
+          note: "日本唯一仍保有天守閣的山城，有貓城主三十郎" 
+        },
+        { time: "13:30", name: "倉敷美觀地區", type: "sight", note: "白壁宅邸與倉敷川" },
+        { time: "15:00", name: "如竹堂 & 倉敷帆布", type: "shop", tags: ["必買伴手禮"], note: "紙膠帶天堂" },
+        { time: "17:00", name: "滔々 民藝館南 (Toutou)", type: "hotel", tags: ["特色住宿"], note: "改建自古民家，體驗極佳" }
+      ]
+    },
+    {
+      id: 9,
+      date: "12/06 (六)",
+      location: "倉敷 ➔ 岡山",
+      mainCity: "岡山",
+      spots: [
+        { time: "10:00", name: "岡山城", type: "sight", note: "烏城。歷史偵探解謎活動。" },
+        { time: "13:00", name: "岡山後樂園", type: "sight", note: "日本三大名園之一" },
+        { time: "18:00", name: "西川綠道公園", type: "sight", note: "冬季燈飾活動" },
+        { time: "20:00", name: "三井花園飯店岡山", type: "hotel", note: "Check-in (含早)" }
+      ]
+    },
+    {
+      id: 10,
+      date: "12/07 (日)",
+      location: "岡山市區 ➔ 返程",
+      mainCity: "岡山",
+      spots: [
+        { time: "10:00", name: "吉備津神社", type: "sight", note: "桃太郎傳說原型" },
+        { time: "13:00", name: "最後採買", type: "shop", note: "AEON MALL 或 岡山車站" },
+        { time: "15:30", name: "前往岡山機場", type: "transport", note: "還車，搭乘 IT263 返回" }
+      ]
+    }
+  ],
+  accommodations: [
+    { name: "THE SHIROYAMA TERRACE 津山別邸", dates: "11/28-29", phone: "0868-24-2111", address: "岡山県津山市山下30-1" },
+    { name: "さぎの湯荘 Saginoyusou", dates: "11/30", phone: "0854-28-6211", address: "島根県安来市古川町478-1" },
+    { name: "星野集團 界 玉造", dates: "12/01", phone: "050-3134-8092", address: "島根県松江市玉湯町玉造1237" },
+    { name: "Centurion Hotel Izumo", dates: "12/02-03", phone: "0853-21-8050", address: "島根県出雲市今市町2081" },
+    { name: "高梁國際飯店", dates: "12/04", phone: "0866-21-0080", address: "岡山県高梁市正宗町2033" },
+    { name: "滔々 Toutou (倉敷)", dates: "12/05", phone: "086-422-0005", address: "岡山県倉敷市中央1-4-16" },
+    { name: "三井花園飯店岡山", dates: "12/06", phone: "086-235-1131", address: "岡山市北区駅元町1-7" }
+  ],
+  emergency: [
+    { name: "緊急報警", number: "110" },
+    { name: "火警/救護車", number: "119" },
+    { name: "租車公司", number: "請查閱租車合約" },
+    { name: "外交部旅外救助", number: "+81-3-3280-7811" }
+  ]
+};
+
+// --- Mock Weather API Simulation ---
+const mockWeatherResponses = {
+  "津山": { weather: "cloudy", temp: "5°C / 14°C" },
+  "安來": { weather: "rain", temp: "4°C / 11°C" },
+  "玉造": { weather: "cloudy", temp: "6°C / 13°C" },
+  "松江": { weather: "sunny", temp: "7°C / 15°C" },
+  "出雲": { weather: "cloudy", temp: "5°C / 12°C" },
+  "高梁": { weather: "sunny", temp: "3°C / 11°C" },
+  "倉敷": { weather: "sunny", temp: "2°C / 12°C" },
+  "岡山": { weather: "sunny", temp: "8°C / 16°C" },
+};
+
+const fetchRealWeather = async (day) => {
+  await new Promise(resolve => setTimeout(resolve, Math.random() * 500 + 300));
+  const cityWeather = mockWeatherResponses[day.mainCity] || { weather: "unknown", temp: "N/A" };
+  return { id: day.id, ...cityWeather };
+};
+
+// --- Wafu Theme Components ---
+
+// 和風天氣標籤：使用更傳統的色彩
+const WeatherBadge = ({ type, temp, simple = false }) => {
+  const iconClass = simple ? "w-4 h-4 mr-1" : "w-5 h-5 mr-1";
+  let icon;
+  let label = "読み込み中..."; // Loading in JP
+  
+  switch (type) {
+    case 'sunny':
+      icon = <Sun className={`${iconClass} text-[#BC412B]`} />; // Shu-iro (Red)
+      label = "晴";
+      break;
+    case 'cloudy':
+      icon = <CloudSun className={`${iconClass} text-stone-500`} />;
+      label = "曇"; // Cloud in JP
+      break;
+    case 'rain':
+      icon = <CloudRain className={`${iconClass} text-[#2E4B71]`} />; // Ai-iro (Indigo)
+      label = "雨";
+      break;
+    default:
+      icon = <Info className={`${iconClass} text-[#D7C4BB]`} />;
+      label = "不明";
+  }
+
+  return (
+    <div className={`flex items-center font-serif ${simple ? 'text-xs text-stone-500' : 'bg-[#f8f7f2] px-3 py-1 rounded-sm shadow-sm border border-[#e0d8cf] text-sm text-stone-700'}`}>
+      {icon}
+      <span>{simple ? temp : `${label} ${temp}`}</span>
+    </div>
+  );
+};
+
+// 和風標籤：色調更沉穩
+const Tag = ({ text }) => {
+  let colorClass = "bg-[#ebe8e1] text-stone-600 border-[#dcd6cc]"; // Default Stone
+  if (text.includes("必吃")) colorClass = "bg-[#fceceb] text-[#BC412B] border-[#e8d2cf]"; // Shu-iro (Light Red)
+  if (text.includes("必買")) colorClass = "bg-[#f5eef5] text-[#8e448e] border-[#e2d5e2]"; // Fujimurasaki (Purple)
+  if (text.includes("重要") || text.includes("國寶") || text.includes("重點")) colorClass = "bg-[#BC412B] text-white border-[#BC412B]"; // Solid Shu-iro
+  if (text.includes("攻略") || text.includes("點擊") || text.includes("查看") || text.includes("冷知識") || text.includes("詳細") || text.includes("神在月") || text.includes("古剎")) colorClass = "bg-[#eaf0f6] text-[#2E4B71] border-[#d4dde8]"; // Ai-iro (Light Indigo)
+
+  return (
+    <span className={`text-[11px] px-2 py-0.5 rounded-sm mr-2 mb-1 inline-block font-serif border ${colorClass}`}>
+      {text}
+    </span>
+  );
+};
+
+const SpotCard = ({ spot, onClick }) => {
+  const hasSubSpots = (spot.subSpots && spot.subSpots.length > 0) || (spot.customDetails && spot.customDetails.length > 0);
+
+  const getIcon = (type) => {
+    switch (type) {
+      case 'food': return <Utensils className="w-4 h-4 text-[#BC412B]" />;
+      case 'coffee': return <Coffee className="w-4 h-4 text-[#8F5A3C]" />;
+      case 'hotel': return <BedDouble className="w-4 h-4 text-[#2E4B71]" />;
+      case 'transport': return <Car className="w-4 h-4 text-[#5F7146]" />;
+      case 'shop': return <Wallet className="w-4 h-4 text-[#8e448e]" />;
+      default: return <Camera className="w-4 h-4 text-[#5F7146]" />;
+    }
+  };
+
+  const handleNavClick = (e) => {
+    e.stopPropagation();
+    const url = spot.link ? spot.link : `https://www.google.com/maps/search/?api=1&query=${spot.name}`;
+    window.open(url, '_blank');
+  };
+
+  return (
+    <div 
+      className={`ml-4 mb-8 relative pl-6 border-l border-[#e0d8cf] last:mb-0 last:border-l-0 animate-fade-in-up font-serif 
+        ${hasSubSpots ? 'cursor-pointer group' : ''}`}
+      onClick={hasSubSpots ? onClick : undefined}
+    >
+      {/* Timeline Dot (More traditional style) */}
+      <div className={`absolute -left-[9px] top-0 bg-[#fcfaf2] border rounded-full p-1.5 transition-colors shadow-sm 
+        ${hasSubSpots ? 'border-[#2E4B71] group-hover:bg-[#eaf0f6]' : 'border-[#dcd6cc]'}`}>
+        {getIcon(spot.type)}
+      </div>
+
+      <div className="flex justify-between items-start mb-2">
+        <div>
+          <span className="text-xs font-bold text-[#2E4B71] block mb-1 tracking-wider">{spot.time}</span>
+          <div className="flex items-center">
+            <h3 className="text-lg font-bold text-[#2b2b2b] leading-tight mr-2 tracking-wide">{spot.name}</h3>
+            {hasSubSpots && <ChevronRight className="w-4 h-4 text-[#2E4B71] opacity-60" />}
+          </div>
+        </div>
+        {/* Condition to hide nav button if specified */}
+        {!spot.hideNav && (
+          <button 
+            onClick={handleNavClick}
+            className="bg-[#f8f7f2] border border-[#e0d8cf] text-[#2E4B71] p-2 rounded-full active:scale-95 transition-transform shadow-sm"
+            aria-label="導航"
+          >
+            <Navigation className="w-3.5 h-3.5" />
+          </button>
+        )}
+      </div>
+
+      <div className="flex flex-wrap mb-2">
+        {spot.tags && spot.tags.map(tag => <Tag key={tag} text={tag} />)}
+      </div>
+
+      {spot.note && (
+        <p className="text-sm text-[#595959] mb-3 leading-loose">{spot.note}</p>
+      )}
+
+      {/* Story Section - Japanese Scroll Style */}
+      {spot.stories && (
+        <div className="mt-4 bg-[#fdfdfb] p-4 rounded-sm border-t-2 border-b-2 border-[#e6e2d8] relative">
+          <div className="absolute top-0 right-0 p-2 opacity-5">
+            <Flower2 className="w-16 h-16" />
+          </div>
+          <h4 className="text-xs font-bold text-[#8F5A3C] mb-2 flex items-center tracking-widest border-b border-[#e6e2d8] pb-1 w-fit">
+             旅人手札
+          </h4>
+          {spot.stories.map((story, idx) => (
+            <p key={idx} className="text-xs text-[#6e6e6e] leading-7 tracking-wide text-justify">
+              {story}
+            </p>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Overview Grid Card
+const DayOverviewCard = ({ day, onClick, weatherInfo }) => {
+  const { weather, temp } = weatherInfo || { weather: 'loading', temp: '...' };
+
+  return (
+    <button 
+      onClick={onClick}
+      className="bg-white p-4 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-start w-full text-left transition-all active:scale-95 hover:shadow-md hover:border-[#2E4B71] relative overflow-hidden group font-serif"
+    >
+      {/* Decorative Corner */}
+      <div className="absolute top-0 right-0 w-12 h-12 bg-[#eaf0f6] rounded-bl-[30px] -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
+      
+      <div className="flex items-center justify-between w-full mb-3 z-10">
+        <div className="bg-[#2E4B71] text-[#fcfaf2] w-8 h-8 rounded-md flex items-center justify-center text-sm font-medium shadow-sm">
+          {day.id}
+        </div>
+        <WeatherBadge type={weather} temp={temp} simple={true} />
+      </div>
+      
+      <div className="z-10 w-full">
+        <h3 className="font-bold text-[#2b2b2b] text-base mb-1 tracking-wider">{day.date}</h3>
+        <p className="text-xs text-[#6e6e6e] border-t border-[#e0d8cf] pt-2 mt-1 w-full flex items-center">
+          <MapPin className="w-3 h-3 mr-1" />{day.location}
+        </p>
+      </div>
+    </button>
+  );
+};
+
+const DetailHeader = ({ title, subtitle, onBack }) => (
+  <div className="sticky top-0 z-40 bg-[#fcfaf2]/95 backdrop-blur-md border-b border-[#e0d8cf] px-4 py-4 mb-6 flex items-center justify-between shadow-sm">
+    <button 
+      onClick={onBack}
+      className="flex items-center text-[#2E4B71] text-sm font-medium p-1 pr-3 rounded hover:bg-[#eaf0f6] transition-colors"
+    >
+      <ChevronLeft className="w-5 h-5 mr-1" />
+      <span className="font-serif">戻る</span>
+    </button>
+    <div className="text-center">
+      {subtitle && <div className="text-[10px] text-[#8e8e8e] font-bold uppercase tracking-widest mb-0.5">{subtitle}</div>}
+      <div className="text-sm font-bold text-[#2b2b2b] font-serif tracking-wide">{title}</div>
+    </div>
+    <div className="w-16"></div> 
+  </div>
+);
+
+// Spot Detail View (Level 3 View)
+const SpotDetailView = ({ spot, onBack }) => {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+
+  return (
+    <div className="animate-fade-in-right pb-24 min-h-screen bg-[#fcfaf2]">
+       <DetailHeader title={spot.name} onBack={onBack} />
+
+      {/* Render Custom Details (e.g. Car Rental, Stories) */}
+      {spot.customDetails && (
+        <div className="px-4 animate-slide-up">
+          <div className="bg-white rounded-lg shadow-sm border border-[#e0d8cf] p-5 mb-4 relative overflow-hidden">
+             {/* Decorative Top Border */}
+             <div className="absolute top-0 left-0 w-full h-1 bg-[#2E4B71]"></div>
+
+            <div className="flex items-center mb-5 text-[#2E4B71] font-bold border-b border-[#e0d8cf] pb-3 font-serif">
+              <FileText className="w-5 h-5 mr-2" />
+              詳細
+            </div>
+            
+            <div className="space-y-5 font-serif">
+              {spot.customDetails.map((item, idx) => (
+                <div key={idx} className="flex flex-col border-b border-dashed border-[#e0d8cf] pb-4 last:border-b-0 last:pb-0">
+                  <div className="flex items-center text-xs text-[#8e8e8e] font-bold uppercase tracking-wider mb-2">
+                    {item.icon && <span className="mr-1.5">{item.icon}</span>}
+                    {item.label}
+                  </div>
+                  <div className={`text-sm text-[#4a4a4a] whitespace-pre-wrap leading-relaxed ${item.highlight ? 'font-bold text-[#BC412B] text-lg' : ''}`}>
+                    {item.value}
+                  </div>
+                  
+                  {/* Address / Nav Link */}
+                  {item.isAddress && (
+                    <button 
+                      onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.value.split('\n')[2] || item.value)}`, '_blank')}
+                      className="mt-3 text-xs bg-[#eaf0f6] text-[#2E4B71] py-1.5 px-3 rounded-sm self-start flex items-center border border-[#d4dde8]"
+                    >
+                      <Navigation className="w-3 h-3 mr-1" /> ナビ開始
+                    </button>
+                  )}
+
+                  {/* External Link */}
+                  {item.linkUrl && (
+                    <button 
+                      onClick={() => window.open(item.linkUrl, '_blank')}
+                      className="mt-3 text-xs text-[#2E4B71] hover:text-[#BC412B] flex items-center underline underline-offset-4"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-1" /> 連結へ移動
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Render Sub Spots (e.g. Restaurants) */}
+      {spot.subSpots && (
+        <div className="px-4 animate-slide-up">
+          <div className="bg-white rounded-lg shadow-sm border border-[#e0d8cf] p-5 mb-4 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-[#BC412B]"></div>
+            <div className="flex items-center mb-5 text-[#BC412B] font-bold border-b border-[#e0d8cf] pb-3 font-serif">
+              <Utensils className="w-5 h-5 mr-2" />
+              推薦清單
+            </div>
+            
+            <div className="space-y-4">
+              {spot.subSpots.map((sub, idx) => (
+                <div key={idx} className="flex items-start justify-between bg-[#fcfaf2] p-4 rounded-sm border border-[#e0d8cf]">
+                  <div className="flex items-start">
+                     <div className="bg-white text-[#2E4B71] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold border border-[#e0d8cf] mr-3 shadow-sm mt-0.5 font-serif">
+                       {idx + 1}
+                     </div>
+                     <div>
+                       <h4 className="font-bold text-[#2b2b2b] font-serif">{sub.name}</h4>
+                       <p className="text-xs text-[#6e6e6e] mt-1 font-serif">{sub.note}</p>
+                     </div>
+                  </div>
+                  <button 
+                     onClick={() => window.open(sub.link, '_blank')}
+                     className="bg-[#2E4B71] text-white p-2 rounded-full shadow-md active:scale-95 transition-transform"
+                     aria-label="導航"
+                  >
+                    <Navigation className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Back Button at the Bottom */}
+      <div className="px-4 mt-6 mb-8 text-center">
+        <button 
+          onClick={onBack}
+          className="flex items-center justify-center text-[#2E4B71] text-sm font-medium p-2 rounded hover:bg-[#eaf0f6] transition-colors mx-auto"
+        >
+          <ChevronLeft className="w-5 h-5 mr-1" />
+          <span className="font-serif">返回當日行程</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Day Detail View (Level 2 View)
+const DayDetailView = ({ day, onBack, weatherInfo }) => {
+  const [selectedSpot, setSelectedSpot] = useState(null);
+
+  useEffect(() => { window.scrollTo(0, 0); }, [day]);
+  
+  if (selectedSpot) {
+    return <SpotDetailView spot={selectedSpot} onBack={() => setSelectedSpot(null)} />;
+  }
+  
+  const { weather, temp } = weatherInfo || { weather: 'loading', temp: '...' };
+
+  return (
+    <div className="animate-fade-in-right min-h-screen bg-[#fcfaf2]">
+      <DetailHeader title={day.date} subtitle={`DAY ${day.id}`} onBack={onBack} />
+
+      <div className="px-4 pb-24">
+        <div className="bg-white rounded-lg shadow-sm border border-[#e0d8cf] p-5 mb-6 relative">
+          <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#e0d8cf]">
+             <div className="flex items-center text-[#2b2b2b] font-bold font-serif text-lg">
+               <MapPin className="w-5 h-5 mr-2 text-[#2E4B71]" />
+               {day.location}
+             </div>
+             <WeatherBadge type={weather} temp={temp} /> 
+          </div>
+          
+          <div className="pt-2">
+             {day.spots.map((spot, index) => (
+              <SpotCard 
+                key={index} 
+                spot={spot} 
+                onClick={() => setSelectedSpot(spot)} 
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Back Button at the Bottom */}
+        <div className="mt-6 mb-8 text-center">
+          <button 
+            onClick={onBack}
+            className="flex items-center justify-center text-[#2E4B71] text-sm font-medium p-2 rounded hover:bg-[#eaf0f6] transition-colors mx-auto"
+          >
+            <ChevronLeft className="w-5 h-5 mr-1" />
+            <span className="font-serif">返回日程總覽</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ToolsSection = () => {
+  return (
+    <div className="pb-24 px-4 pt-6 font-serif">
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="bg-white p-4 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-center justify-center text-center relative overflow-hidden">
+          <div className="absolute top-0 w-full h-1 bg-[#2E4B71] opacity-50"></div>
+          <div className="text-sm font-bold text-[#2E4B71] mb-1">去程 IT262</div>
+          <div className="text-xs text-[#6e6e6e]">11/28 11:30</div>
+        </div>
+        <div className="bg-white p-4 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-center justify-center text-center relative overflow-hidden">
+          <div className="absolute top-0 w-full h-1 bg-[#BC412B] opacity-50"></div>
+          <div className="text-sm font-bold text-[#BC412B] mb-1">回程 IT263</div>
+          <div className="text-xs text-[#6e6e6e]">12/08 15:55</div>
+        </div>
+      </div>
+
+      <h3 className="text-lg font-bold text-[#2E4B71] mb-4 flex items-center border-l-4 border-[#2E4B71] pl-3">
+        宿泊リスト
+      </h3>
+      <div className="space-y-3 mb-10">
+        {tripData.accommodations.map((hotel, idx) => (
+          <div key={idx} className="bg-white p-4 rounded-md border border-[#e0d8cf] shadow-sm flex justify-between items-center">
+            <div>
+              <h4 className="font-bold text-[#2b2b2b] text-sm tracking-wide">{hotel.name}</h4>
+              <p className="text-xs text-[#8e8e8e] mt-1">{hotel.dates}・{hotel.address}</p>
+            </div>
+            <button onClick={() => window.open(`tel:${hotel.phone}`)} className="bg-[#fcfaf2] border border-[#e0d8cf] text-[#5F7146] p-2 rounded-full">
+              <Phone className="w-4 h-4" />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-[#fceceb] border border-[#e8d2cf] rounded-lg p-5">
+        <h3 className="text-[#BC412B] font-bold text-sm mb-3 flex items-center">
+          <Info className="w-4 h-4 mr-2" /> 緊急連絡先
+        </h3>
+        <div className="grid grid-cols-2 gap-3">
+          {tripData.emergency.map((item, idx) => (
+            <a key={idx} href={`tel:${item.number}`} className="bg-white/80 p-3 rounded border border-[#e8d2cf] text-center block active:bg-white transition-colors">
+              <div className="text-xs text-[#8e8e8e] mb-1">{item.name}</div>
+              <div className="text-base font-bold text-[#BC412B] font-mono">{item.number}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ItineraryView = ({ weatherData }) => {
+  const [selectedDay, setSelectedDay] = useState(null);
+
+  if (selectedDay) {
+    return <DayDetailView day={selectedDay} onBack={() => setSelectedDay(null)} weatherInfo={weatherData[selectedDay.id]} />;
+  }
+
+  return (
+    <div className="pb-24 px-4 pt-6 font-serif">
+      <div className="grid grid-cols-2 gap-4">
+        {tripData.days.map((day) => (
+          <DayOverviewCard 
+            key={day.id} 
+            day={day} 
+            onClick={() => setSelectedDay(day)}
+            weatherInfo={weatherData[day.id]}
+          />
+        ))}
+      </div>
+      <div className="text-center text-xs text-[#a0a0a0] mt-8 mb-4 tracking-widest">
+        —— 日程を選択 ——
+      </div>
+    </div>
+  );
+};
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('itinerary');
+  const [scrolled, setScrolled] = useState(false);
+  const [weatherData, setWeatherData] = useState({});
+
+  useEffect(() => {
+    const handleScroll = () => { setScrolled(window.scrollY > 20); };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const loadWeather = async () => {
+      const results = await Promise.all(tripData.days.map(day => fetchRealWeather(day)));
+      setWeatherData(results.reduce((acc, curr) => { acc[curr.id] = { weather: curr.weather, temp: curr.temp }; return acc; }, {}));
+    };
+    loadWeather();
+  }, []);
+
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes fadeInRight { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+      .animate-fade-in-right { animation: fadeInRight 0.4s ease-out forwards; }
+      .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-[#fcfaf2] font-sans text-[#2b2b2b]">
+      {/* Header */}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-[#fcfaf2]/95 shadow-sm py-3 border-b border-[#e0d8cf]' : 'bg-transparent py-6'}`}>
+        <div className="max-w-md mx-auto px-5 flex justify-between items-end">
+          <div>
+            <h1 className={`font-bold text-[#2E4B71] transition-all font-serif tracking-widest ${scrolled ? 'text-lg' : 'text-2xl'}`}>
+              {tripData.meta.title}
+            </h1>
+            {!scrolled && (
+              <p className="text-xs text-[#8e8e8e] mt-2 flex items-center tracking-wider">
+                <Calendar className="w-3 h-3 mr-1" /> {tripData.meta.dateRange}
+              </p>
+            )}
+          </div>
+          <div className="text-right">
+             {!scrolled && <span className="text-[10px] bg-[#fceceb] text-[#BC412B] px-3 py-1 rounded-full border border-[#e8d2cf] tracking-widest">秋旅</span>}
+          </div>
+        </div>
+      </header>
+      
+      <div className="h-24"></div>
+
+      <main className="max-w-md mx-auto relative z-0">
+        {activeTab === 'itinerary' ? <ItineraryView weatherData={weatherData} /> : <ToolsSection />}
+      </main>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#fcfaf2] border-t border-[#e0d8cf] z-50 pb-safe shadow-[0_-5px_20px_rgba(0,0,0,0.03)]">
+        <div className="max-w-md mx-auto flex justify-around items-center h-16">
+          <button 
+            onClick={() => setActiveTab('itinerary')}
+            className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'itinerary' ? 'text-[#2E4B71]' : 'text-[#a0a0a0]'}`}
+          >
+            <MapPin className="w-5 h-5" />
+            <span className="text-[10px] font-medium tracking-widest font-serif">日程</span>
+          </button>
+          
+          <div className="w-px h-6 bg-[#e0d8cf]"></div>
+
+          <button 
+            onClick={() => setActiveTab('tools')}
+            className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${activeTab === 'tools' ? 'text-[#2E4B71]' : 'text-[#a0a0a0]'}`}
+          >
+            <BookOpen className="w-5 h-5" />
+            <span className="text-[10px] font-medium tracking-widest font-serif">手帳</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  );
+}
