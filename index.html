@@ -125,7 +125,7 @@
                             name: "津山晚餐", 
                             type: "food", 
                             tags: ["必吃美食", "點擊看推薦"], 
-                            // note: "點擊查看三家推薦餐廳詳細資訊", // 這一行已刪除
+                            note: "", // 移除備註文字
                             hideNav: true, 
                             subSpots: [
                                 { 
@@ -156,7 +156,22 @@
                     location: "津山深度遊",
                     mainCity: "津山",
                     spots: [
-                        { time: "09:00", name: "津山城 (鶴山公園)", type: "sight", note: "日本百大名城" },
+                        { time: "09:00", name: "津山城 (鶴山公園)", type: "sight", note: "日本百大名城", 
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7", // 请替换为正确链接，这里用占位符
+                            tags: ["百名城", "賞櫻名所"],
+                            customDetails: [
+                                {
+                                    label: "百大名城",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "津山城是日本三大平山城之一，由森蘭丸的弟弟森忠政耗時13年建成。雖然天守閣已不復存在，但其雄偉的石垣至今仍保留完整，高達45公尺，令人震撼。"
+                                },
+                                {
+                                    label: "賞櫻勝地",
+                                    icon: <Icons.Flower2 className="w-4 h-4" />,
+                                    value: "鶴山公園是西日本著名的賞櫻景點，入選「日本櫻花名所100選」。園內種植了約1000棵櫻花樹，春天時粉櫻與石垣相映成趣，美不勝收。"
+                                }
+                            ]
+                        },
                         { 
                             time: "10:30", 
                             name: "津山洋學資料館", 
@@ -330,6 +345,17 @@
                                     label: "歷史風情",
                                     icon: <Icons.BookOpen className="w-4 h-4" />,
                                     value: "新庄宿是舊出雲街道上的宿場町，曾是參勤交代隊伍往來的交通要衝。街道兩旁保留著美麗的凱旋櫻並木，雖然秋天沒有櫻花，但古色古香的街道依然充滿風情。"
+                                },
+                                {
+                                    label: "當地名物",
+                                    icon: <Icons.Utensils className="w-4 h-4" />,
+                                    value: "這裡以「姬糯米 (ヒメノモチ)」聞名。道之驛「凱旋櫻新庄宿」內有販售使用姬糯米製作的各種伴手禮與美食，例如源平餅、牛魔王丼等。"
+                                },
+                                {
+                                    label: "推薦停留",
+                                    icon: <Icons.MapPin className="w-4 h-4" />,
+                                    value: "道之驛 凱旋櫻新庄宿 (道の駅 がいせん桜 新庄宿)",
+                                    linkUrl: "https://maps.app.goo.gl/kFW6tb4oNTUqujgR8?g_st=ipc"
                                 }
                             ]
                         },
@@ -345,15 +371,34 @@
                 {
                     id: 4,
                     date: "12/01 (一)",
-                    location: "足立美術館 ➔ 玉造溫泉",
+                    location: "足立美術館。玉造溫泉", // Updated title
                     mainCity: "玉造",
                     spots: [
                         { 
-                            time: "09:00", 
+                            time: "08:30", 
+                            name: "早餐 & 退房", 
+                            type: "food", 
+                            note: "於飯店享用早餐後退房" 
+                        },
+                        { 
+                            time: "09:30", 
                             name: "足立美術館", 
                             type: "sight", 
                             tags: ["必去景點"],
-                            note: "連續多年日本第一庭園。含魯山人、近現代日本畫收藏。" 
+                            note: "連續多年日本第一庭園。含魯山人、近現代日本畫收藏。",
+                            link: "https://maps.app.goo.gl/6aLNh24U6E92D9XSA",
+                            customDetails: [
+                                {
+                                    label: "日本第一庭園",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "由足立全康創立，以「庭園本身就是一幅畫」為理念。其枯山水庭園連續20年以上被美國日本庭園專門雜誌評選為日本第一，四季景色皆如畫卷般美麗。"
+                                },
+                                {
+                                    label: "必看館藏",
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "館內收藏了大量近代日本畫大師「橫山大觀」的作品，數量約120件，是日本質量首屈一指的收藏。此外還有北大路魯山人的陶藝作品等。"
+                                }
+                            ]
                         },
                         { 
                             time: "12:00", 
@@ -429,12 +474,12 @@
                 {
                     id: 5,
                     date: "12/02 (二)",
-                    location: "松江城 ➔ 出雲",
+                    location: "松江城", // Updated title
                     mainCity: "松江",
                     spots: [
                         {
                             time: "08:00",
-                            name: "早餐 & 退房",
+                            name: "早餐：界玉造", // Updated name
                             type: "food",
                             note: "於界 玉造享用早餐，隨後開車前往松江城"
                         },
@@ -513,6 +558,7 @@
                             time: "17:00", 
                             name: "Centurion Hotel & Spa Classic Izumo", 
                             type: "hotel", 
+                            link: "https://maps.app.goo.gl/d1nbWNtvLxRVLJBj8", // Added Link
                             note: "Booking。不含早餐" 
                         }
                     ]
@@ -520,7 +566,7 @@
                 {
                     id: 6,
                     date: "12/03 (三)",
-                    location: "出雲大社 (神在祭)",
+                    location: "出雲大社。神在祭", // Updated title
                     mainCity: "出雲",
                     spots: [
                         { 
@@ -561,17 +607,7 @@
                                 },
                                 {
                                     label: "實用連結",
-                                    value: "境內圖 (PDF)",
-                                    linkUrl: "https://izumooyashiro.or.jp/wp-content/uploads/2025/10/d20251010_nai.pdf"
-                                },
-                                {
-                                    label: "實用連結",
-                                    value: "境外圖 (PDF)",
-                                    linkUrl: "https://izumooyashiro.or.jp/wp-content/uploads/2025/10/d20251010_gai.pdf"
-                                },
-                                {
-                                    label: "官方網站",
-                                    value: "出雲大社官網",
+                                    value: "境內圖(PDF)、境外圖(PDF)、官方網站",
                                     linkUrl: "https://izumooyashiro.or.jp/"
                                 },
                                 {
@@ -693,14 +729,14 @@
                             time: "12:00", 
                             name: "スープカレーの店 つくし Tsukushi", 
                             type: "food", 
-                            note: "湯咖哩 (Soup Curry)",
+                            note: "湯咖哩。有中文菜單", // Updated note
                             link: "https://maps.app.goo.gl/ipcTnZdKknc5NAig6" 
                         },
                         { 
                             time: "13:30", 
                             name: "吹屋故鄉村", 
                             type: "sight", 
-                            stories: ["以「紅瓦」建築群聞名的銅礦小鎮，彷彿時光靜止。"],
+                            // stories removed
                             note: "參觀：松榮館、舊吹屋小學校、郵局",
                             link: "https://maps.app.goo.gl/DkasesLFCzke4KKa7", // Link to Fukiya Furusato Village Area
                             tags: ["日本遺產", "紅銅色街道"],
@@ -714,19 +750,19 @@
                                     label: "必看景點：舊片山家住宅",
                                     icon: <Icons.MapPin className="w-4 h-4" />,
                                     value: "江戶時代後期弁柄商人的豪宅，保存狀態極佳，可一窺當時富商的生活。",
-                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder link, user can update
+                                    linkUrl: "https://maps.app.goo.gl/bz1zrRSYbHdgKYpCA" // Updated Link
                                 },
                                 {
                                     label: "必看景點：舊吹屋小學校",
                                     icon: <Icons.MapPin className="w-4 h-4" />,
                                     value: "明治時代建造的木造校舍，擁有美麗的講堂與懷舊氛圍，是日本現存最古老的木造校舍之一。",
-                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder link
+                                    linkUrl: "https://maps.app.goo.gl/amGWq6zkP7dbEm9k8" // Updated Link
                                 },
                                 {
-                                    label: "必看景點：弁柄館",
+                                    label: "必看景點：吹屋郵便局",
                                     icon: <Icons.MapPin className="w-4 h-4" />,
-                                    value: "重現了明治時代弁柄工廠的模樣，可以了解紅色顏料的製作過程。",
-                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder link
+                                    value: "保留了復古外觀的現役郵局，非常適合拍照留念。",
+                                    linkUrl: "https://maps.app.goo.gl/v7YhxEEMAYQZaejB6" // Added Link
                                 }
                             ]
                         },
@@ -851,7 +887,7 @@
                                 {
                                     label: "美食・購物筆記",
                                     icon: <Icons.Wallet className="w-4 h-4" />,
-                                    value: "美食・購物筆記", // Removed "點擊連結導航"
+                                    value: "美食・購物筆記",
                                     highlight: true
                                 },
                                 {
@@ -1163,7 +1199,7 @@
                             time: "14:00", 
                             name: "機場報到", 
                             type: "plane", 
-                            note: "IT263 17:55 起飛。免稅店可買吉備糰子、大手饅頭",
+                            note: "IT263 17:55 起飛。免稅店可買吉備糰子、大手饅頭", // Updated Flight Time
                             tags: ["平安回家"]
                         }
                     ]
@@ -1683,3 +1719,5 @@
     </script>
 </body>
 </html>
+
+
