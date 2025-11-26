@@ -41,7 +41,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- 圖示組件 (直接內嵌，避免讀取錯誤) ---
+        // --- 圖示組件 ---
         const Icons = {
             MapPin: (props) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
             Navigation: (props) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>,
@@ -240,7 +240,7 @@
                 {
                     id: 3,
                     date: "11/30 (日)",
-                    location: "津山 ➔ 勝山 ➔ 安來",
+                    location: "勝山町・新庄宿",
                     mainCity: "安來",
                     spots: [
                         {
@@ -654,16 +654,49 @@
                             time: "09:00",
                             name: "出發前往吹屋",
                             type: "transport",
-                            note: "建議選擇最快路線，途經松江道與中國道 (約2.5小時)",
+                            note: "建議選擇最快路線 (約2小時28分)，途經松江自動車道 (免費區間多) 與中國自動車道。比起山路更舒適好開。",
                             link: "https://maps.app.goo.gl/DkasesLFCzke4KKa7"
                         },
-                        { time: "12:00", name: "Tsukushi", type: "food", note: "湯咖哩 (Soup Curry)" },
+                        { 
+                            time: "12:00", 
+                            name: "スープカレーの店 つくし Tsukushi", 
+                            type: "food", 
+                            note: "湯咖哩 (Soup Curry)",
+                            link: "https://maps.app.goo.gl/ipcTnZdKknc5NAig6" 
+                        },
                         { 
                             time: "13:30", 
                             name: "吹屋故鄉村", 
                             type: "sight", 
                             stories: ["以「紅瓦」建築群聞名的銅礦小鎮，彷彿時光靜止。"],
-                            note: "參觀：松榮館、舊吹屋小學校、郵局"
+                            note: "參觀：松榮館、舊吹屋小學校、郵局",
+                            link: "https://maps.app.goo.gl/DkasesLFCzke4KKa7", // Link to Fukiya Furusato Village Area
+                            tags: ["日本遺產", "紅銅色街道"],
+                            customDetails: [
+                                {
+                                    label: "歷史簡介",
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "吹屋故鄉村因盛產銅礦與氧化鐵顏料「弁柄」而繁榮，被稱為「日本紅的發祥地」。這裡的富商們為了打造統一的街景，特地聘請來自石州的宮大工，使用高品質的石州瓦與弁柄漆，建造了這片獨一無二的紅銅色街道。如今被選定為國家重要傳統的建造物群保存地區。"
+                                },
+                                {
+                                    label: "必看景點：舊片山家住宅",
+                                    icon: <Icons.MapPin className="w-4 h-4" />,
+                                    value: "江戶時代後期弁柄商人的豪宅，保存狀態極佳，可一窺當時富商的生活。",
+                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder link, user can update
+                                },
+                                {
+                                    label: "必看景點：舊吹屋小學校",
+                                    icon: <Icons.MapPin className="w-4 h-4" />,
+                                    value: "明治時代建造的木造校舍，擁有美麗的講堂與懷舊氛圍，是日本現存最古老的木造校舍之一。",
+                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder link
+                                },
+                                {
+                                    label: "必看景點：弁柄館",
+                                    icon: <Icons.MapPin className="w-4 h-4" />,
+                                    value: "重現了明治時代弁柄工廠的模樣，可以了解紅色顏料的製作過程。",
+                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder link
+                                }
+                            ]
                         },
                         { time: "17:00", name: "高梁國際飯店", type: "hotel", note: "Check-in (含早餐)" }
                     ]
@@ -674,9 +707,178 @@
                     location: "備中松山城 ➔ 倉敷",
                     mainCity: "倉敷",
                     spots: [
-                        { time: "06:00", name: "備中松山城展望台", type: "sight", tags: ["絕景"], note: "早起看雲海日出！" },
-                        { time: "09:00", name: "備中松山城", type: "sight", note: "日本唯一仍保有天守閣的山城，有貓城主三十郎" },
-                        { time: "13:30", name: "倉敷美觀地區", type: "sight", note: "白壁宅邸與倉敷川" },
+                        { 
+                            time: "06:00", 
+                            name: "備中松山城展望台", 
+                            type: "sight", 
+                            tags: ["絕景", "雲海"], 
+                            note: "早起看雲海日出！",
+                            link: "https://maps.app.goo.gl/VPSM2Jo6dUXuq84X8",
+                            customDetails: [
+                                {
+                                    label: "雲海預測",
+                                    icon: <Icons.ExternalLink className="w-4 h-4" />,
+                                    value: "出發前請確認當天雲海出現機率：三菱自動車 週末探險家",
+                                    linkUrl: "https://www.mitsubishi-motors.co.jp/special/weekend-explorer/unkai/18.html"
+                                },
+                                {
+                                    label: "展望台地圖",
+                                    icon: <Icons.MapPin className="w-4 h-4" />,
+                                    value: "查看雲海展望台周邊地圖 (PDF/圖片)",
+                                    linkUrl: "https://takahasikanko.or.jp/uploads/fckeditor/uid000001_2025091813133292864352.jpg"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "08:00", 
+                            name: "早餐 & 退房", 
+                            type: "food", 
+                            note: "回高梁國際飯店享用早餐，隨後退房" 
+                        },
+                        {
+                            time: "09:00",
+                            name: "高梁市觀光駐車場",
+                            type: "transport",
+                            note: "停車轉乘登山巴士，或步行上山",
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7", // Needs actual link if available, using placeholder or general search
+                            tags: ["停車場"]
+                        },
+                        { 
+                            time: "09:30", 
+                            name: "備中高梁 散策", 
+                            type: "sight", 
+                            note: "建議購買三館共通券 (1000円)",
+                            tags: ["共通券"],
+                            customDetails: [
+                                {
+                                    label: "三館共通券",
+                                    icon: <Icons.Wallet className="w-4 h-4" />,
+                                    value: "售價 1000円。包含：備中松山城、武家屋敷（舊折井家・舊埴原家）、賴久寺。"
+                                },
+                                {
+                                    label: "散策順序建議",
+                                    icon: <Icons.Navigation className="w-4 h-4" />,
+                                    value: "1. 武家屋敷 舊折井家\n2. 武家屋敷 舊埴原家\n3. 賴久寺庭園 (國家指定名勝)"
+                                },
+                                {
+                                    label: "賴久寺連結",
+                                    value: "Google Maps",
+                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder
+                                }
+                            ]
+                        },
+                        { 
+                            time: "11:00", 
+                            name: "備中松山城", 
+                            type: "sight", 
+                            note: "日本唯一仍保有天守閣的山城", 
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7", // Placeholder
+                            tags: ["百名城", "貓城主"],
+                            customDetails: [
+                                {
+                                    label: "貓城主三十郎",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "這裡有著名的貓城主「三十郎」，運氣好的話可以遇到他巡視領地喔！",
+                                    linkUrl: "https://www.instagram.com/sanju_ro_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" // Instagram Link
+                                },
+                                {
+                                    label: "印章活動",
+                                    icon: <Icons.Info className="w-4 h-4" />,
+                                    value: "有明信片印章活動，蓋印沒有順序，可以在參觀過程中收集。"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "12:30", 
+                            name: "高梁午餐推薦", 
+                            type: "food", 
+                            note: "嘗試當地B級美食「印度番茄炒麵」",
+                            tags: ["特色美食"],
+                            subSpots: [
+                                { 
+                                    name: "五万石 (Goman-goku)", 
+                                    note: "印度番茄炒麵創始店", 
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Gomangoku+Takahashi"
+                                },
+                                { 
+                                    name: "高梁市圖書館 (Starbucks)", 
+                                    note: "最美圖書館，適合輕食休憩", 
+                                    type: "coffee",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Takahashi+City+Library"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "13:30", 
+                            name: "倉敷美觀地區", 
+                            type: "sight", 
+                            note: "白壁宅邸與倉敷川",
+                            tags: ["天領", "白壁屋敷"],
+                            customDetails: [
+                                {
+                                    label: "美食・購物筆記",
+                                    icon: <Icons.Wallet className="w-4 h-4" />,
+                                    value: "美食・購物筆記", // Removed "點擊連結導航"
+                                    highlight: true
+                                },
+                                {
+                                    label: "★ 如竹堂",
+                                    value: "紙膠帶天堂",
+                                    linkUrl: "https://maps.app.goo.gl/AXJ6LaZy3kD2uz4CA"
+                                },
+                                {
+                                    label: "倉敷帆布",
+                                    value: "百年帆布老店",
+                                    linkUrl: "https://maps.app.goo.gl/s8Vdqdhf2kdBNYSU7"
+                                },
+                                {
+                                    label: "蟲文庫",
+                                    value: "古民家獨立書店",
+                                    linkUrl: "https://maps.app.goo.gl/rfmo9BQUQkAq42UV6"
+                                },
+                                {
+                                    label: "★ 倉敷館觀光案內所",
+                                    value: "提供旅遊資訊與休憩",
+                                    linkUrl: "https://maps.app.goo.gl/zw2imA7XaXf1kDwLA"
+                                },
+                                {
+                                    label: "炭珈琲三村",
+                                    value: "自家烘焙咖啡",
+                                    linkUrl: "https://maps.app.goo.gl/U4h1sXSZ9w8nfTt1A"
+                                },
+                                {
+                                    label: "倉敷 SOLA",
+                                    value: "複合式商業設施 (牛仔布、雜貨)",
+                                    linkUrl: "https://maps.app.goo.gl/BNKKsPG2uCYntmPx6"
+                                },
+                                {
+                                    label: "町家喫茶 三宅商店",
+                                    value: "咖哩飯、甜點、咖啡與冰品",
+                                    linkUrl: "https://maps.app.goo.gl/Qq66a9LevLf4jjtm6"
+                                },
+                                {
+                                    label: "TANE×612 FACTORY",
+                                    value: "紙膠帶專賣店",
+                                    linkUrl: "https://maps.app.goo.gl/bZB7T3yUHa7RMPXx6"
+                                },
+                                {
+                                    label: "林源十郎商店",
+                                    value: "設計雜貨與生活選物",
+                                    linkUrl: "https://maps.app.goo.gl/KJ8qEhYmkmFQtqoZ7"
+                                },
+                                {
+                                    label: "歷史背景",
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "倉敷美觀地區在江戶時代初期成為幕府的直轄地（天領），設有代官所，作為備中國南部的物資集散地而繁榮。倉敷川沿岸林立著許多白壁土藏（倉庫）與屋敷，至今仍保留了當時的風貌。1979年被列為國家重要傳統的建造物群保存地區。"
+                                },
+                                {
+                                    label: "代表景觀",
+                                    icon: <Icons.Info className="w-4 h-4" />,
+                                    value: "倉敷川兩岸的柳樹街道、白壁黑瓦的倉庫群，以及穿梭其間的小船（川舟流し），構成了倉敷最具代表性的風景。這裡融合了江戶時代的傳統建築與明治之後的西洋風格，展現了獨特的文化魅力。"
+                                }
+                            ]
+                        },
                         { time: "15:00", name: "如竹堂 & 倉敷帆布", type: "shop", tags: ["必買伴手禮"], note: "紙膠帶天堂" },
                         { time: "17:00", name: "滔々 民藝館南 (Toutou)", type: "hotel", tags: ["特色住宿"], note: "改建自古民家，體驗極佳" }
                     ]
@@ -687,21 +889,251 @@
                     location: "倉敷 ➔ 岡山",
                     mainCity: "岡山",
                     spots: [
-                        { time: "10:00", name: "岡山城", type: "sight", note: "烏城。歷史偵探解謎活動。" },
-                        { time: "13:00", name: "岡山後樂園", type: "sight", note: "日本三大名園之一" },
-                        { time: "18:00", name: "西川綠道公園", type: "sight", note: "冬季燈飾活動" },
-                        { time: "20:00", name: "三井花園飯店岡山", type: "hotel", note: "Check-in (含早)" }
+                        {
+                            time: "08:30",
+                            name: "早餐",
+                            type: "food",
+                            note: "於滔々享用早餐，隨後退房"
+                        },
+                        { 
+                            time: "09:30", 
+                            name: "吉備津神社", 
+                            type: "sight", 
+                            note: "桃太郎傳說原型", 
+                            tags: ["必去景點", "國寶"],
+                            link: "https://maps.app.goo.gl/Nx4BAMYZdiCWCFjN9",
+                            customDetails: [
+                                {
+                                    label: "必看重點",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "長達 360 公尺的木造迴廊，沿著山坡地形蜿蜒，非常壯觀，是拍照絕景。本殿與拜殿是日本唯一的「吉備津造」建築樣式，被指定為國寶。"
+                                },
+                                {
+                                    label: "桃太郎傳說",
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "這裡供奉的大吉備津彥命是桃太郎的原型，傳說中他在此擊退了名為「溫羅」的鬼。"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "12:00", 
+                            name: "岡山市區午餐", 
+                            type: "food", 
+                            note: "品嚐岡山名物",
+                            tags: ["午餐推薦"],
+                            subSpots: [
+                                {
+                                    name: "味司 野村 (Nomura)",
+                                    note: "多蜜醬豬排丼創始店，醬汁濃郁",
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Ajitsukasa+Nomura+Okayama"
+                                },
+                                {
+                                    name: "おまち堂 & FRUTAS",
+                                    note: "水果王國必吃水果聖代 (輕食)",
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Omachido+Frutas+Okayama"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "13:30", 
+                            name: "岡山城 (烏城)", 
+                            type: "sight", 
+                            note: "黑色外牆的帥氣城堡",
+                            tags: ["解謎活動"],
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7", // Placeholder
+                            customDetails: [
+                                {
+                                    label: "歷史偵探解謎",
+                                    icon: <Icons.Info className="w-4 h-4" />,
+                                    value: "建議預留 1-2 小時慢慢解謎。這座城因外牆漆黑如烏鴉，故被稱為「烏城」，與白色的姬路城形成強烈對比。"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "15:30", 
+                            name: "岡山後樂園", 
+                            type: "sight", 
+                            note: "日本三大名園之一",
+                            tags: ["必去景點"],
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7", // Placeholder
+                            customDetails: [
+                                {
+                                    label: "遊覽建議",
+                                    icon: <Icons.Coffee className="w-4 h-4" />,
+                                    value: "與岡山城相鄰，步行即可抵達。園區廣大優美，建議在園內的茶屋稍作休息，喝杯抹茶欣賞風景。"
+                                },
+                                {
+                                    label: "夢二鄉土美術館",
+                                    icon: <Icons.MapPin className="w-4 h-4" />,
+                                    value: "位於後樂園旁，展示竹久夢二的作品。",
+                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder
+                                }
+                            ]
+                        },
+                        { 
+                            time: "18:00", 
+                            name: "西川綠道公園 燈飾", 
+                            type: "sight", 
+                            note: "冬季限定燈飾活動",
+                            tags: ["夜間景點"],
+                            customDetails: [
+                                {
+                                    label: "活動介紹",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "在岡山市中心南北流淌的西川沿岸舉辦的冬季燈飾活動。從岡山車站附近的桃太郎大通到阿倉通，水邊閃耀著五彩繽紛的燈飾，還有高達4公尺的聖誕樹登場，營造出光輝閃爍的星月夜世界。"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "20:00", 
+                            name: "三井花園飯店岡山", 
+                            type: "hotel", 
+                            note: "Booking/含早餐。頂樓有大浴場",
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder
+                        }
                     ]
                 },
                 {
                     id: 10,
                     date: "12/07 (日)",
-                    location: "岡山市區 ➔ 返程",
+                    location: "岡山 (雙方案)",
                     mainCity: "岡山",
                     spots: [
-                        { time: "10:00", name: "吉備津神社", type: "sight", note: "桃太郎傳說原型" },
-                        { time: "13:00", name: "最後採買", type: "shop", note: "AEON MALL 或 岡山車站" },
-                        { time: "15:30", name: "前往岡山機場", type: "transport", note: "還車，搭乘 IT263 返回" }
+                        {
+                            time: "09:00",
+                            name: "方案選擇",
+                            type: "transport",
+                            note: "請依當日體力與喜好選擇方案 A 或 B",
+                            tags: ["自由行"]
+                        },
+                        { 
+                            time: "A", 
+                            name: "方案 A：瀨戶內海與丹寧", 
+                            type: "sight", 
+                            note: "適合喜歡工藝、看海的人",
+                            subSpots: [
+                                {
+                                    name: "兒島牛仔褲街",
+                                    note: "日本牛仔褲發源地 (車程約50分)",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Kojima+Jeans+Street"
+                                },
+                                {
+                                    name: "鷲羽山展望台",
+                                    note: "眺望瀨戶大橋與夕陽絕景",
+                                    type: "sight",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Washuzan+Observatory"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "B", 
+                            name: "方案 B：市區散策與採購", 
+                            type: "sight", 
+                            note: "適合想輕鬆逛街買伴手禮的人",
+                            subSpots: [
+                                {
+                                    name: "岡山表町商店街",
+                                    note: "昭和風情老街，有天滿屋百貨",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Omotecho+Shopping+Street+Okayama"
+                                },
+                                {
+                                    name: "AEON Mall 岡山",
+                                    note: "西日本最大級旗艦店，非常好買",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=AEON+MALL+Okayama"
+                                }
+                            ]
+                        },
+                        {
+                            time: "12:30",
+                            name: "午餐推薦",
+                            type: "food",
+                            note: "依方案選擇",
+                            subSpots: [
+                                {
+                                    name: "(A) 兒島海鮮",
+                                    note: "當地著名的章魚料理",
+                                    type: "food"
+                                },
+                                {
+                                    name: "(B) 小豆島拉麵 HISHIO",
+                                    note: "岡山站前店，湯頭濃郁",
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Shodoshima+Ramen+HISHIO+Okayama"
+                                }
+                            ]
+                        },
+                        {
+                            time: "備註",
+                            name: "必買伴手禮清單",
+                            type: "shop",
+                            note: "最後衝刺參考",
+                            customDetails: [
+                                { label: "大手饅頭", value: "岡山人最愛，薄皮紅豆餡" },
+                                { label: "吉備糰子", value: "廣榮堂五味太郎包裝超可愛" },
+                                { label: "倉敷意匠/mt", value: "限定款紙膠帶 (AEON文具區)" },
+                                { label: "水果罐頭", value: "白桃/葡萄罐頭或果凍" },
+                                { label: "中川政七/Hare Machi", value: "AEON內的質感選物店" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 11,
+                    date: "12/08 (一)",
+                    location: "岡山 ➔ 返程",
+                    mainCity: "岡山",
+                    spots: [
+                        { 
+                            time: "09:00", 
+                            name: "悠閒早餐 & Check-out", 
+                            type: "food", 
+                            note: "整理行李，準備返程" 
+                        },
+                        { 
+                            time: "10:30", 
+                            name: "最後補漏", 
+                            type: "shop", 
+                            note: "郵局寄明信片、Bic Camera、AEON補貨",
+                            subSpots: [
+                                {
+                                    name: "岡山中央郵便局",
+                                    note: "寄出旅途回憶",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Okayama+Central+Post+Office"
+                                },
+                                {
+                                    name: "Bic Camera",
+                                    note: "車站對面，電器補貨",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Bic+Camera+Okayama"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "12:30", 
+                            name: "前往機場", 
+                            type: "transport", 
+                            note: "開車前往岡山機場 (約30分)",
+                            tags: ["記得加油"]
+                        },
+                        { 
+                            time: "13:30", 
+                            name: "還車手續", 
+                            type: "transport", 
+                            note: "辦理還車 + 接駁車到航廈 (預留30分)" 
+                        },
+                        { 
+                            time: "14:00", 
+                            name: "機場報到", 
+                            type: "plane", 
+                            note: "IT263 15:55 起飛。免稅店可買吉備糰子、大手饅頭",
+                            tags: ["平安回家"]
+                        }
                     ]
                 }
             ],
@@ -712,7 +1144,7 @@
                 { name: "Centurion Hotel Izumo", dates: "12/02-03", phone: "0853-21-8050", address: "島根県出雲市今市町2081" },
                 { name: "高梁國際飯店", dates: "12/04", phone: "0866-21-0080", address: "岡山県高梁市正宗町2033" },
                 { name: "滔々 Toutou (倉敷)", dates: "12/05", phone: "086-422-0005", address: "岡山県倉敷市中央1-4-16" },
-                { name: "三井花園飯店岡山", dates: "12/06", phone: "086-235-1131", address: "岡山市北区駅元町1-7" }
+                { name: "三井花園飯店岡山", dates: "12/06-07", phone: "086-235-1131", address: "岡山市北区駅元町1-7" }
             ],
             emergency: [
                 { name: "緊急報警", number: "110" },
@@ -785,7 +1217,7 @@
             if (text.includes("必吃")) colorClass = "bg-[#fceceb] text-[#BC412B] border-[#e8d2cf]";
             if (text.includes("必買")) colorClass = "bg-[#f5eef5] text-[#8e448e] border-[#e2d5e2]";
             if (text.includes("重要") || text.includes("國寶")) colorClass = "bg-[#BC412B] text-white border-[#BC412B]";
-            if (text.includes("攻略") || text.includes("點擊") || text.includes("查看") || text.includes("冷知識") || text.includes("詳細") || text.includes("豆知識")) colorClass = "bg-[#eaf0f6] text-[#2E4B71] border-[#d4dde8]";
+            if (text.includes("攻略") || text.includes("點擊") || text.includes("查看") || text.includes("冷知識") || text.includes("詳細") || text.includes("豆知識") || text.includes("天領") || text.includes("白壁")) colorClass = "bg-[#eaf0f6] text-[#2E4B71] border-[#d4dde8]";
 
             return (
                 <span className={`text-[11px] px-2 py-0.5 rounded-sm mr-2 mb-1 inline-block font-serif border ${colorClass}`}>
@@ -877,21 +1309,21 @@
             return (
                 <button 
                     onClick={onClick}
-                    className="bg-white p-4 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-start w-full text-left transition-all active:scale-95 hover:shadow-md hover:border-[#2E4B71] relative overflow-hidden group font-serif"
+                    className="bg-white p-2 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-start w-full text-left transition-all active:scale-95 hover:shadow-md hover:border-[#2E4B71] relative overflow-hidden group font-serif"
                 >
-                    <div className="absolute top-0 right-0 w-12 h-12 bg-[#eaf0f6] rounded-bl-[30px] -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
+                    <div className="absolute top-0 right-0 w-10 h-10 bg-[#eaf0f6] rounded-bl-[20px] -mr-5 -mt-5 transition-transform group-hover:scale-110"></div>
                     
-                    <div className="flex items-center justify-between w-full mb-3 z-10">
-                        <div className="bg-[#2E4B71] text-[#fcfaf2] w-8 h-8 rounded-md flex items-center justify-center text-sm font-medium shadow-sm">
+                    <div className="flex items-center justify-between w-full mb-1 z-10">
+                        <div className="bg-[#2E4B71] text-[#fcfaf2] w-6 h-6 rounded-md flex items-center justify-center text-xs font-medium shadow-sm">
                             {day.id}
                         </div>
                         <WeatherBadge type={weather} temp={temp} simple={true} />
                     </div>
                     
                     <div className="z-10 w-full">
-                        <h3 className="font-bold text-[#2b2b2b] text-base mb-1 tracking-wider">{day.date}</h3>
-                        <p className="text-xs text-[#6e6e6e] border-t border-[#e0d8cf] pt-2 mt-1 w-full flex items-center">
-                            <Icons.MapPin className="w-3 h-3 mr-1" />{day.location}
+                        <h3 className="font-bold text-[#2b2b2b] text-sm mb-0 tracking-wider">{day.date}</h3>
+                        <p className="text-[10px] text-[#6e6e6e] border-t border-[#e0d8cf] pt-1 mt-0.5 w-full flex items-center truncate">
+                            <Icons.MapPin className="w-2.5 h-2.5 mr-1" />{day.location}
                         </p>
                     </div>
                 </button>
@@ -934,11 +1366,11 @@
                                 <div className="space-y-5 font-serif">
                                     {spot.customDetails.map((item, idx) => (
                                         <div key={idx} className="flex flex-col border-b border-dashed border-[#e0d8cf] pb-4 last:border-b-0 last:pb-0">
-                                            <div className="flex items-center text-xs text-[#8e8e8e] font-bold uppercase tracking-wider mb-2">
-                                                {item.icon && <span className="mr-1.5">{item.icon}</span>}
+                                            <div className="flex items-center text-lg text-[#2b2b2b] font-bold mb-2">
+                                                {item.icon && <span className="mr-2 text-[#2E4B71]">{item.icon}</span>}
                                                 {item.label}
                                             </div>
-                                            <div className={`text-sm text-[#4a4a4a] whitespace-pre-wrap leading-relaxed ${item.highlight ? 'font-bold text-[#BC412B] text-lg' : ''}`}>
+                                            <div className={`text-xs text-[#6e6e6e] whitespace-pre-wrap leading-relaxed ${item.highlight ? 'font-bold text-[#BC412B] text-base' : ''}`}>
                                                 {item.value}
                                             </div>
                                             
@@ -1219,4 +1651,3 @@
     </script>
 </body>
 </html>
-
