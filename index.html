@@ -150,7 +150,7 @@
                         { 
                             time: "10:30", 
                             name: "津山洋學資料館", 
-                            type: "sight",
+                            type: "sight", 
                             tags: ["冷知識"],
                             customDetails: [
                                 {
@@ -498,6 +498,7 @@
                             time: "09:30", 
                             name: "出雲大社", 
                             type: "sight", 
+                            link: "https://maps.app.goo.gl/oykq6vdCMoBYoY9E6",
                             tags: ["重點行程", "神在月"], 
                             note: "參拜禮儀：二禮、四拍手、一禮",
                             customDetails: [
@@ -548,7 +549,35 @@
                             time: "12:30", 
                             name: "神門通", 
                             type: "sight", 
-                            note: "逛街、吃善哉" 
+                            note: "逛街、午餐、吃善哉",
+                            tags: ["午餐推薦", "商店街"],
+                            customDetails: [
+                                {
+                                    label: "神門通介紹",
+                                    icon: <Icons.Info className="w-4 h-4" />,
+                                    value: "神門通是出雲大社的表參道，從宇迦橋大鳥居延伸至勢溜大鳥居，全長約700公尺。這條街道保留了許多傳統建築，聚集了眾多特色商店、咖啡館與紀念品店。必吃美食包括出雲蕎麥麵與源自當地的「善哉」（紅豆湯）。"
+                                }
+                            ],
+                            subSpots: [
+                                {
+                                    name: "砂屋 (Sunaya)",
+                                    note: "Tabelog 2025百名店 (11:00–15:00)",
+                                    type: "food",
+                                    link: "https://maps.app.goo.gl/AjJQJjpe6SGRbuct6"
+                                },
+                                {
+                                    name: "荒木屋 (Arakiya)",
+                                    note: "出雲蕎麥老店 (11:00–16:00)",
+                                    type: "food",
+                                    link: "https://maps.app.goo.gl/pKVUojnrqQYxqZ1F9"
+                                },
+                                {
+                                    name: "そば処 出雲えにし",
+                                    note: "位於神門通上 (11:00–16:00)",
+                                    type: "food",
+                                    link: "https://maps.app.goo.gl/NqprPSzaVj7vCWmk6"
+                                }
+                            ]
                         },
                         { 
                             time: "14:00", 
@@ -557,21 +586,73 @@
                             note: "紅白相間的美麗神社",
                             link: "https://maps.app.goo.gl/MFeGsKQLW5AkhsbW6"
                         },
+                        {
+                            time: "16:00",
+                            name: "稻佐之濱",
+                            type: "sight",
+                            note: "觀賞夕陽、取御砂",
+                            tags: ["夕陽", "神話舞台"],
+                            link: "https://maps.app.goo.gl/nsbupGHf9Kiy6Qn29",
+                            customDetails: [
+                                {
+                                    label: "國讓神話舞台",
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "稻佐之濱是《古事記》中「國讓神話」的舞台，傳說建御雷神在此與大國主神談判交出國家。海灘上聳立的「弁天島」供奉著海神豐玉毘古命，是此地的象徵。"
+                                },
+                                {
+                                    label: "神在月迎神",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "每年農曆10月10日晚間，全日本的八百萬神明會先降臨於此，舉行莊嚴的「神迎神事」，隨後前往出雲大社。"
+                                },
+                                {
+                                    label: "夕陽絕景",
+                                    icon: <Icons.Info className="w-4 h-4" />,
+                                    value: "這裡入選為「日本海濱百選」與「日本夕陽百選」，夕陽西下時，弁天島的剪影與火紅天空倒映在海面上，景色夢幻迷人。"
+                                }
+                            ]
+                        },
                         { 
                             time: "18:00", 
-                            name: "晚餐：Yaoyorozu 或 荒木屋", 
+                            name: "出雲晚餐", 
                             type: "food", 
-                            note: "出雲蕎麥麵名店" 
+                            note: "點擊查看推薦餐廳",
+                            tags: ["晚餐推薦"],
+                            subSpots: [
+                                {
+                                    name: "Yaoyorozu (やおよろず)",
+                                    note: "飯店附近和食 (17:30–22:00)",
+                                    type: "food",
+                                    link: "https://maps.app.goo.gl/s1XSw2zczfviXsjY7"
+                                },
+                                {
+                                    name: "羽根屋 本店",
+                                    note: "獻上出雲蕎麥 (17:00–19:00)",
+                                    type: "food",
+                                    link: "https://maps.app.goo.gl/7t4Fwx7omVbQTcpJA"
+                                }
+                            ]
                         }
                     ]
                 },
                 {
                     id: 7,
                     date: "12/04 (四)",
-                    location: "出雲 ➔ 吹屋故鄉村",
+                    location: "吹屋故鄉村",
                     mainCity: "高梁",
                     spots: [
-                        { time: "09:00", name: "出發前往吹屋", type: "transport", note: "車程約 2h 40m，注意山路蜿蜒" },
+                        {
+                            time: "08:30",
+                            name: "早餐",
+                            type: "food",
+                            note: "於飯店內享用早餐，隨後辦理退房"
+                        },
+                        {
+                            time: "09:00",
+                            name: "出發前往吹屋",
+                            type: "transport",
+                            note: "建議選擇最快路線，途經松江道與中國道 (約2.5小時)",
+                            link: "https://maps.app.goo.gl/DkasesLFCzke4KKa7"
+                        },
                         { time: "12:00", name: "Tsukushi", type: "food", note: "湯咖哩 (Soup Curry)" },
                         { 
                             time: "13:30", 
