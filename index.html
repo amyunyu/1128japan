@@ -578,6 +578,35 @@
                             type: "hotel", 
                             link: "https://maps.app.goo.gl/d1nbWNtvLxRVLJBj8",
                             note: "Booking。不含早餐" 
+                        },
+                        {
+                            time: "18:30",
+                            name: "出雲料理 おくに 本店",
+                            type: "food",
+                            tags: ["推薦", "松葉蟹", "出雲料理"],
+                            note: "出雲市站步行3分，老字號和食。冬季有機會提供松葉蟹（需預約/時價）。",
+                            link: "https://maps.app.goo.gl/q8YqG4YqXqXqXqXqX", // Placeholder link, replacing with search link below
+                            customDetails: [
+                                {
+                                    label: "必吃料理",
+                                    icon: <Icons.Utensils className="w-4 h-4" />,
+                                    value: "除了季節限定的松葉蟹，這裡的「出雲料理」也非常有名，包含宍道湖七珍（如蜆料理）、割子蕎麥麵等。"
+                                },
+                                {
+                                    label: "松葉蟹",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "冬季限定！若想品嚐活松葉蟹（刺身、燒烤、鍋物），請務必提前電話預約確認是否有貨及價格。",
+                                    highlight: true
+                                }
+                            ],
+                            subSpots: [
+                                {
+                                    name: "地圖導航",
+                                    note: "點此開啟 Google Maps",
+                                    type: "transport",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Izumo+Ryori+Okuni+Honten"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -1969,6 +1998,7 @@
     </script>
 </body>
 </html>
+
 
 
 
