@@ -1047,15 +1047,15 @@
                                     icon: <Icons.Utensils className="w-4 h-4" />,
                                     value: "【風格】經典老舖居酒屋\n【推薦理由】倉敷最有名的排隊名店！町家老屋建築充滿歷史感，氣氛熱鬧。必吃炭火串燒與鰆魚刺身。",
                                     links: [
-                                        { name: "地圖導航", url: "https://maps.app.goo.gl/7f6kX9XqXqXqXqXqX" }
+                                        { name: "地圖導航", url: "https://www.google.com/maps/search/?api=1&query=Takataya+Kurashiki" }
                                     ]
                                 },
                                 {
                                     label: "2. 民藝茶屋 新粹 (Shinsui)",
                                     icon: <Icons.Utensils className="w-4 h-4" />,
-                                    value: "【風格】關東煮與日本酒\n【推薦理由】掛著紅燈籠的溫馨小店。12月的夜晚最適合圍著吧台吃熱騰騰的關東煮配地酒，暖胃首選。",
+                                    value: "【風格】關東煮與日本酒\n【推薦理由】掛著紅燈籠的溫暖小店。12月的夜晚最適合圍著吧台吃熱騰騰的關東煮配地酒，暖胃首選。",
                                     links: [
-                                        { name: "地圖導航", url: "https://maps.app.goo.gl/8f7kX9XqXqXqXqXqX" }
+                                        { name: "地圖導航", url: "https://www.google.com/maps/search/?api=1&query=Mingei+Chaya+Shinsui+Kurashiki" }
                                     ]
                                 },
                                 {
@@ -1063,7 +1063,7 @@
                                     icon: <Icons.Utensils className="w-4 h-4" />,
                                     value: "【風格】道地鄉土料理\n【推薦理由】想一次吃到所有岡山名產（如散壽司、Mamakari）就來這裡。環境舒適，適合家庭或想好好吃套餐的人。",
                                     links: [
-                                        { name: "地圖導航", url: "https://maps.app.goo.gl/9f8kX9XqXqXqXqXqX" }
+                                        { name: "地圖導航", url: "https://www.google.com/maps/search/?api=1&query=Fukuya+Honkan+Kurashiki" }
                                     ]
                                 }
                             ],
@@ -1219,7 +1219,7 @@
                 {
                     id: 10,
                     date: "12/07 (日)",
-                    location: "岡山 (雙方案)",
+                    location: "岡山。雙方案", // <-- Day 10 標題已更新
                     mainCity: "岡山",
                     spots: [
                         {
@@ -1430,13 +1430,10 @@
                 { name: "滔々 Toutou (倉敷)", dates: "12/05", phone: "086-422-0005", address: "岡山県倉敷市中央1-4-16" },
                 { name: "三井花園飯店岡山", dates: "12/06-07", phone: "086-235-1131", address: "岡山市北区駅元町1-7" }
             ],
-            // emergency: [], // Removed
-            // budget: [], // Removed
-            // quickLinks: [] // Removed
         };
 
         // --- Mock Weather API (Fallback) ---
-        // 恢復模擬資料作為備案
+        // 恢復模擬資料作為備案，以防 API Key 未生效或查詢失敗
         const mockWeatherResponses = {
             "津山": { weather: "cloudy", temp: "5°C / 14°C" },
             "安來": { weather: "rain", temp: "4°C / 11°C" },
@@ -1449,7 +1446,6 @@
         };
 
         // --- 城市坐標 (City Coordinates) ---
-        // OpenWeatherMap API 使用坐標查詢城市天氣。
         const CITY_COORDINATES = {
             "津山": { lat: 35.064, lon: 134.004 },    // 津山市
             "安來": { lat: 35.428, lon: 133.250 },    // 安來市
@@ -1461,20 +1457,18 @@
             "岡山": { lat: 34.661, lon: 133.921 },    // 岡山市
         };
 
-        // --- OpenWeatherMap API 呼叫 (請替換為您的 API Key) ---
-        const API_KEY = "125cba2c2cfeff7d99133ca1c7ff66a0"; // <<--- 請在這裡填入您的 OpenWeatherMap API Key
+        // --- OpenWeatherMap API 呼叫 ---
+        const API_KEY = "125cba2c2cfeff7d99133ca1c7ff66a0"; 
         const WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
 
         /**
          * 將 OpenWeatherMap 天氣代碼轉換為圖示和文字
-         * @param {number} code - OpenWeatherMap weather ID
-         * @returns {{type: string, description: string}}
          */
         const mapWeatherCode = (code) => {
             if (code >= 200 && code < 300) return { type: 'rain', description: '雷雨' };
             if (code >= 300 && code < 500) return { type: 'rain', description: '細雨' };
             if (code >= 500 && code < 600) return { type: 'rain', description: '雨' };
-            if (code >= 600 && code < 700) return { type: 'cloudy', description: '雪' }; // OpenWeatherMap doesn't have a snow icon
+            if (code >= 600 && code < 700) return { type: 'cloudy', description: '雪' };
             if (code >= 700 && code < 800) return { type: 'cloudy', description: '霧/霾' };
             if (code === 800) return { type: 'sunny', description: '晴朗' };
             if (code >= 801 && code < 805) return { type: 'cloudy', description: '多雲' };
@@ -1482,16 +1476,14 @@
         };
 
         /**
-         * 呼叫 OpenWeatherMap API 取得城市天氣
-         * @param {string} city - 城市名稱
-         * @returns {Promise<{weather: string, temp: string} | null>}
+         * 呼叫 OpenWeatherMap API 取得城市天氣，失敗則使用 Mock Data
          */
         const fetchWeatherByCity = async (city) => {
             const coords = CITY_COORDINATES[city];
-            if (!coords || API_KEY === "YOUR_OPENWEATHERMAP_API_KEY") {
-                // Fallback to mock data if config is missing
+            
+            if (!coords || API_KEY === "YOUR_OPENWEATHERMAP_API_KEY" || API_KEY === "") {
                 const mock = mockWeatherResponses[city];
-                return mock ? { ...mock, error: null } : { weather: 'unknown', temp: 'N/A', error: 'Config Error' };
+                return mock ? { ...mock, error: 'Config Error (Using Mock)' } : { weather: 'unknown', temp: 'N/A', error: 'Config Error' };
             }
 
             const url = `${WEATHER_BASE_URL}?lat=${coords.lat}&lon=${coords.lon}&appid=${API_KEY}&units=metric&lang=zh_tw`;
@@ -1503,10 +1495,7 @@
                 }
                 const data = await response.json();
                 
-                // 取得溫度（攝氏）
                 const temp = data.main.temp ? `${Math.round(data.main.temp)}°C` : 'N/A';
-                
-                // 取得天氣狀態並轉換為我們的圖示類型
                 const weatherCode = data.weather[0]?.id;
                 const { type, description } = mapWeatherCode(weatherCode);
 
@@ -1521,11 +1510,11 @@
                 // Fallback to mock data on error (e.g. 401 Unauthorized)
                 const mock = mockWeatherResponses[city];
                 if (mock) {
-                    return { ...mock, error: null };
+                    return { ...mock, error: 'API Error (Using Mock)' };
                 }
                 return { 
                     weather: 'unknown', 
-                    temp: 'ERROR', 
+                    temp: 'N/A', 
                     error: `天氣查詢失敗: ${error.message}` 
                 };
             }
@@ -1539,8 +1528,9 @@
             let label = "載入中...";
             
             if (error) {
+                const isConfigError = error.includes('Config Error');
                 icon = <Icons.Info className={`${iconClass} text-[#BC412B]`} />;
-                label = "錯誤";
+                label = isConfigError ? 'N/A' : '錯誤';
                 return (
                     <div className={`flex items-center font-serif ${simple ? 'text-xs text-[#BC412B]' : 'bg-[#fceceb] px-3 py-1 rounded-sm shadow-sm border border-[#e8d2cf] text-sm text-[#BC412B]'}`} title={error}>
                         {icon}
@@ -2045,3 +2035,4 @@
     </script>
 </body>
 </html>
+
