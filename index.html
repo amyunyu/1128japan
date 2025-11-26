@@ -104,6 +104,12 @@
                                     value: "岡山站前店\n7-25 Hon-machi, Kita-ku, Okayama-shi, Okayama 700-0901\n岡山市北区本町7-25",
                                     isAddress: true
                                 },
+                                { 
+                                    label: "還車店鋪地圖連結", 
+                                    value: "點此導航", 
+                                    isAddress: false,
+                                    linkUrl: "https://maps.app.goo.gl/Nr5s9fA2sAyjZgxF8" // 新增的還車地點連結
+                                },
                                 { label: "出發時間", value: "11/28/2025 17:30", icon: <Icons.Clock className="w-4 h-4" /> },
                                 { label: "還車時間", value: "12/06/2025 16:00", icon: <Icons.Clock className="w-4 h-4" /> },
                             ]
@@ -119,7 +125,7 @@
                             name: "津山晚餐", 
                             type: "food", 
                             tags: ["必吃美食", "點擊看推薦"], 
-                            note: "點擊查看三家推薦餐廳詳細資訊",
+                            // note: "點擊查看三家推薦餐廳詳細資訊", // 這一行已刪除
                             hideNav: true, 
                             subSpots: [
                                 { 
@@ -192,7 +198,7 @@
                             name: "日進月步", 
                             type: "food", 
                             tags: ["午餐"], 
-                            note: "蕎麥麵料理",
+                            note: "蕎麥麵料理。11:30–13:30。", // Updated note
                             link: "https://maps.app.goo.gl/UGV1S3HYVyxNh5Kp7"
                         },
                         { 
@@ -240,7 +246,7 @@
                 {
                     id: 3,
                     date: "11/30 (日)",
-                    location: "勝山町・新庄宿",
+                    location: "勝山町新庄宿", // Updated title
                     mainCity: "安來",
                     spots: [
                         {
@@ -281,30 +287,51 @@
                             time: "12:00", 
                             name: "勝山町午餐", 
                             type: "food", 
-                            note: "點擊查看推薦餐廳 (Romantei / 西藏)",
+                            note: "點擊查看推薦餐廳", // Updated note
                             tags: ["午餐推薦"],
                             subSpots: [
                                 { 
                                     name: "Romantei (ろまん亭)", 
                                     note: "當地人氣洋食", 
                                     type: "food",
-                                    link: "https://www.google.com/maps/search/?api=1&query=Romantei+Katsuyama"
+                                    link: "https://maps.app.goo.gl/46wWkwgogatMVLAp6" // Updated Link
                                 },
                                 { 
                                     name: "西蔵 (Nishigura)", 
                                     note: "酒造改建餐廳，氣氛極佳", 
                                     type: "food",
-                                    link: "https://www.google.com/maps/search/?api=1&query=Nishigura+Restaurant+Katsuyama"
+                                    link: "https://maps.app.goo.gl/aoUGZjRXtUeWR6rb7" // Updated Link
                                 }
                             ]
                         },
-                        { time: "14:00", name: "玉雲大權現宮", type: "sight" },
+                        { 
+                            time: "14:00", 
+                            name: "玉雲大權現宮", 
+                            type: "sight",
+                            link: "https://maps.app.goo.gl/X78GbGZwaLAr2VWb6", // Updated Link
+                            tags: ["能量景點"],
+                            customDetails: [
+                                {
+                                    label: "景點介紹",
+                                    icon: <Icons.Info className="w-4 h-4" />,
+                                    value: "這裡以巨大的杉木聞名，被視為能量景點。境內氛圍莊嚴神秘，巨木參天，是感受大自然與神聖氣息的好地方。"
+                                }
+                            ]
+                        },
                         { 
                             time: "15:00", 
                             name: "新庄宿", 
                             type: "sight", 
                             note: "建議走 R181 轉米子自動車道",
-                            link: "https://maps.app.goo.gl/kFW6tb4oNTUqujgR8?g_st=ipc" 
+                            link: "https://maps.app.goo.gl/kFW6tb4oNTUqujgR8?g_st=ipc",
+                            tags: ["宿場町"],
+                            customDetails: [
+                                {
+                                    label: "歷史風情",
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "新庄宿是舊出雲街道上的宿場町，曾是參勤交代隊伍往來的交通要衝。街道兩旁保留著美麗的凱旋櫻並木，雖然秋天沒有櫻花，但古色古香的街道依然充滿風情。"
+                                }
+                            ]
                         },
                         { 
                             time: "17:00", 
@@ -1131,7 +1158,7 @@
                             time: "14:00", 
                             name: "機場報到", 
                             type: "plane", 
-                            note: "IT263 15:55 起飛。免稅店可買吉備糰子、大手饅頭",
+                            note: "IT263 17:55 起飛。免稅店可買吉備糰子、大手饅頭",
                             tags: ["平安回家"]
                         }
                     ]
@@ -1257,7 +1284,7 @@
                         {getIcon(spot.type)}
                     </div>
 
-                    <div className="flex justify-between items-start mb-2">
+                    <div className="flex justify-between items-start mb-1">
                         <div>
                             <span className="text-xs font-bold text-[#2E4B71] block mb-1 tracking-wider">{spot.time}</span>
                             <div className="flex items-center">
@@ -1276,7 +1303,7 @@
                         )}
                     </div>
 
-                    <div className="flex flex-wrap mb-2">
+                    <div className="flex flex-wrap mb-1">
                         {spot.tags && spot.tags.map(tag => <Tag key={tag} text={tag} />)}
                     </div>
 
@@ -1309,21 +1336,21 @@
             return (
                 <button 
                     onClick={onClick}
-                    className="bg-white p-2 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-start w-full text-left transition-all active:scale-95 hover:shadow-md hover:border-[#2E4B71] relative overflow-hidden group font-serif"
+                    className="bg-white p-4 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-start w-full text-left transition-all active:scale-95 hover:shadow-md hover:border-[#2E4B71] relative overflow-hidden group font-serif"
                 >
-                    <div className="absolute top-0 right-0 w-10 h-10 bg-[#eaf0f6] rounded-bl-[20px] -mr-5 -mt-5 transition-transform group-hover:scale-110"></div>
+                    <div className="absolute top-0 right-0 w-12 h-12 bg-[#eaf0f6] rounded-bl-[30px] -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
                     
-                    <div className="flex items-center justify-between w-full mb-1 z-10">
-                        <div className="bg-[#2E4B71] text-[#fcfaf2] w-6 h-6 rounded-md flex items-center justify-center text-xs font-medium shadow-sm">
+                    <div className="flex items-center justify-between w-full mb-3 z-10">
+                        <div className="bg-[#2E4B71] text-[#fcfaf2] w-8 h-8 rounded-md flex items-center justify-center text-sm font-medium shadow-sm">
                             {day.id}
                         </div>
                         <WeatherBadge type={weather} temp={temp} simple={true} />
                     </div>
                     
                     <div className="z-10 w-full">
-                        <h3 className="font-bold text-[#2b2b2b] text-sm mb-0 tracking-wider">{day.date}</h3>
-                        <p className="text-[10px] text-[#6e6e6e] border-t border-[#e0d8cf] pt-1 mt-0.5 w-full flex items-center truncate">
-                            <Icons.MapPin className="w-2.5 h-2.5 mr-1" />{day.location}
+                        <h3 className="font-bold text-[#2b2b2b] text-base mb-1 tracking-wider">{day.date}</h3>
+                        <p className="text-xs text-[#6e6e6e] border-t border-[#e0d8cf] pt-2 mt-1 w-full flex items-center">
+                            <Icons.MapPin className="w-3 h-3 mr-1" />{day.location}
                         </p>
                     </div>
                 </button>
@@ -1510,7 +1537,7 @@
                         <div className="bg-white p-4 rounded-lg shadow-sm border border-[#e0d8cf] flex flex-col items-center justify-center text-center relative overflow-hidden">
                             <div className="absolute top-0 w-full h-1 bg-[#BC412B] opacity-50"></div>
                             <div className="text-sm font-bold text-[#BC412B] mb-1">回程 IT263</div>
-                            <div className="text-xs text-[#6e6e6e]">12/08 15:55</div>
+                            <div className="text-xs text-[#6e6e6e]">12/08 17:55</div>
                         </div>
                     </div>
 
