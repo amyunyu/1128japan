@@ -1175,19 +1175,50 @@
                         },
                         { 
                             time: "B", 
-                            name: "方案 B：市區散策與採購", 
+                            name: "方案 B：電車慢活。市區散策", 
                             type: "sight", 
-                            note: "適合想輕鬆逛街買伴手禮的人",
+                            note: "搭乘可愛的路面電車，漫步新舊交融的街區",
+                            tags: ["路面電車", "文青散步"],
+                            customDetails: [
+                                {
+                                    label: "體驗路面電車 (岡電)",
+                                    icon: <Icons.Car className="w-4 h-4" />,
+                                    value: "從「岡山站前」搭乘至「城下站」或「縣廳通站」。運氣好的話可以搭到知名設計師水戶岡銳治設計的「MOMO號」或全黑帥氣的「KURO號」。",
+                                    links: [
+                                        { name: "時刻表與路線", url: "https://okayama-kido.co.jp/tramway/" }
+                                    ]
+                                },
+                                {
+                                    label: "必逛：HARE MACHI 特區 365",
+                                    icon: <Icons.Wallet className="w-4 h-4" />,
+                                    value: "位於 AEON Mall 岡山 1F/2F 的「ハレマチ特区365」。這裡集合了岡山所有的設計工藝品（倉敷帆布、兒島牛仔布、備前燒、紙膠帶），不用跑遠就能一次買齊最有質感的伴手禮。",
+                                    links: [
+                                        { name: "官網介紹", url: "https://hare365.com/" }
+                                    ]
+                                }
+                            ],
                             subSpots: [
                                 {
-                                    name: "岡山表町商店街",
-                                    note: "昭和風情老街，有天滿屋百貨",
-                                    type: "shop",
+                                    name: "岡山電氣軌道 (路面電車)",
+                                    note: "岡山站前出發，體驗復古風情",
+                                    type: "transport",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Okayama+Electric+Tramway+Okayama-Ekimae"
+                                },
+                                {
+                                    name: "表町商店街 & 荷蘭通",
+                                    note: "昭和拱廊街與文青咖啡店散策",
+                                    type: "sight",
                                     link: "https://www.google.com/maps/search/?api=1&query=Omotecho+Shopping+Street+Okayama"
                                 },
                                 {
+                                    name: "西川綠道公園",
+                                    note: "午後沿著河岸散步回車站，舒適愜意",
+                                    type: "sight",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Nishigawa+Greenway+Park"
+                                },
+                                {
                                     name: "AEON Mall 岡山",
-                                    note: "西日本最大級旗艦店，非常好買",
+                                    note: "西日本旗艦店，必逛 HARE MACHI",
                                     type: "shop",
                                     link: "https://www.google.com/maps/search/?api=1&query=AEON+MALL+Okayama"
                                 }
@@ -1197,7 +1228,7 @@
                             time: "12:30",
                             name: "午餐推薦",
                             type: "food",
-                            note: "依方案選擇",
+                            note: "依方案選擇 (點擊導航)",
                             subSpots: [
                                 {
                                     name: "(A) 兒島海鮮",
@@ -1205,8 +1236,14 @@
                                     type: "food"
                                 },
                                 {
+                                    name: "(B) 食堂 やまと (Yamato)",
+                                    note: "在地排隊名店！多蜜醬豬排丼+拉麵",
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Shokudo+Yamato+Okayama"
+                                },
+                                {
                                     name: "(B) 小豆島拉麵 HISHIO",
-                                    note: "岡山站前店，湯頭濃郁",
+                                    note: "岡山站前店，湯頭濃郁，無限替玉",
                                     type: "food",
                                     link: "https://www.google.com/maps/search/?api=1&query=Shodoshima+Ramen+HISHIO+Okayama"
                                 }
@@ -1932,3 +1969,6 @@
     </script>
 </body>
 </html>
+
+
+
