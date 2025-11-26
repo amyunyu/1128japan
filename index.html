@@ -607,17 +607,7 @@
                                 },
                                 {
                                     label: "實用連結",
-                                    value: "境內圖(PDF)",
-                                    linkUrl: "https://izumooyashiro.or.jp/wp-content/uploads/2025/10/d20251010_nai.pdf"
-                                },
-                                {
-                                    label: "實用連結",
-                                    value: "境外圖(PDF)",
-                                    linkUrl: "https://izumooyashiro.or.jp/wp-content/uploads/2025/10/d20251010_gai.pdf"
-                                },
-                                {
-                                    label: "實用連結",
-                                    value: "官方網站",
+                                    value: "境內圖(PDF)、境外圖(PDF)、官方網站",
                                     linkUrl: "https://izumooyashiro.or.jp/"
                                 },
                                 {
@@ -977,30 +967,274 @@
                             ]
                         },
                         { time: "15:00", name: "如竹堂 & 倉敷帆布", type: "shop", tags: ["必買伴手禮"], note: "紙膠帶天堂" },
-                        { time: "17:00", name: "滔々 民藝館南 (Toutou)", type: "hotel", tags: ["特色住宿"], note: "改建自古民家，體驗極佳" }
+                        { 
+                            time: "17:00", 
+                            name: "滔々 民藝館南 (Toutou)", 
+                            type: "hotel", 
+                            tags: ["特色住宿"], 
+                            note: "官網預訂", // Updated note
+                            link: "https://maps.app.goo.gl/iZwVJmsQDPGpExkp9" // Updated Link
+                        }
                     ]
                 },
                 {
                     id: 9,
                     date: "12/06 (六)",
-                    location: "倉敷 ➔ 岡山",
+                    location: "倉敷。岡山", // Updated title
                     mainCity: "岡山",
                     spots: [
-                        { time: "10:00", name: "岡山城", type: "sight", note: "烏城。歷史偵探解謎活動。" },
-                        { time: "13:00", name: "岡山後樂園", type: "sight", note: "日本三大名園之一" },
-                        { time: "18:00", name: "西川綠道公園", type: "sight", note: "冬季燈飾活動" },
-                        { time: "20:00", name: "三井花園飯店岡山", type: "hotel", note: "Check-in (含早)" }
+                        {
+                            time: "08:30",
+                            name: "倉敷美觀地區逛逛", // Updated name
+                            type: "sight", // Changed type to sight
+                            note: "早起拍照", // Updated note
+                            link: "https://maps.app.goo.gl/3d6nEfpG6aFwqd3q7" // Added Link
+                        },
+                        { 
+                            time: "09:30", 
+                            name: "吉備津神社", 
+                            type: "sight", 
+                            note: "桃太郎傳說原型", 
+                            tags: ["必去景點", "國寶"],
+                            link: "https://maps.app.goo.gl/Nx4BAMYZdiCWCFjN9",
+                            customDetails: [
+                                {
+                                    label: "必看重點",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "長達 360 公尺的木造迴廊，沿著山坡地形蜿蜒，非常壯觀，是拍照絕景。本殿與拜殿是日本唯一的「吉備津造」建築樣式，被指定為國寶。"
+                                },
+                                {
+                                    label: "桃太郎傳說",
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "這裡供奉的大吉備津彥命是桃太郎的原型，傳說中他在此擊退了名為「溫羅」的鬼。"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "12:00", 
+                            name: "岡山市區午餐", 
+                            type: "food", 
+                            note: "品嚐岡山名物",
+                            tags: ["午餐推薦"],
+                            subSpots: [
+                                {
+                                    name: "味司 野村 (Nomura)",
+                                    note: "多蜜醬豬排丼創始店，醬汁濃郁",
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Ajitsukasa+Nomura+Okayama"
+                                },
+                                {
+                                    name: "おまち堂 & FRUTAS",
+                                    note: "水果王國必吃水果聖代 (輕食)",
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Omachido+Frutas+Okayama"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "13:30", 
+                            name: "岡山城。烏城", // Updated name
+                            type: "sight", 
+                            note: "黑色外牆的帥氣城堡",
+                            tags: ["解謎活動"],
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7", // Placeholder
+                            customDetails: [
+                                {
+                                    label: "歷史介紹", // Updated label
+                                    icon: <Icons.BookOpen className="w-4 h-4" />,
+                                    value: "岡山城由豐臣秀吉的家臣宇喜多秀家於1597年建造。不同於姬路城的白色，岡山城的外牆覆蓋著塗有黑漆的下見板，因此被稱為「烏城」。其不等邊五角形的天守台也是一大特色。雖然天守在二戰中被燒毀，但後來進行了重建，內部展示了豐富的歷史資料。"
+                                },
+                                {
+                                    label: "歷史偵探解謎",
+                                    icon: <Icons.Info className="w-4 h-4" />,
+                                    value: "參加「歷史偵探與烏城之謎」活動，解開隱藏在城內的謎題。",
+                                    linkUrl: "https://okayama-castle-nazotokimystery.jp" // Added Link
+                                }
+                            ]
+                        },
+                        { 
+                            time: "15:30", 
+                            name: "岡山後樂園", 
+                            type: "sight", 
+                            note: "日本三大名園之一",
+                            tags: ["必去景點"],
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7", // Placeholder
+                            customDetails: [
+                                {
+                                    label: "遊覽建議",
+                                    icon: <Icons.Coffee className="w-4 h-4" />,
+                                    value: "與岡山城相鄰，步行即可抵達。園區廣大優美，建議在園內的茶屋稍作休息，喝杯抹茶欣賞風景。"
+                                },
+                                {
+                                    label: "夢二鄉土美術館",
+                                    icon: <Icons.MapPin className="w-4 h-4" />,
+                                    value: "位於後樂園旁，展示竹久夢二的作品。",
+                                    linkUrl: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder
+                                }
+                            ]
+                        },
+                        { 
+                            time: "18:00", 
+                            name: "西川綠道公園 燈飾", 
+                            type: "sight", 
+                            note: "冬季限定燈飾活動",
+                            tags: ["夜間景點"],
+                            customDetails: [
+                                {
+                                    label: "活動介紹",
+                                    icon: <Icons.Star className="w-4 h-4" />,
+                                    value: "在岡山市中心南北流淌的西川沿岸舉辦的冬季燈飾活動。從岡山車站附近的桃太郎大通到阿倉通，水邊閃耀著五彩繽紛的燈飾，還有高達4公尺的聖誕樹登場，營造出光輝閃爍的星月夜世界。"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "20:00", 
+                            name: "三井花園飯店岡山", 
+                            type: "hotel", 
+                            note: "Booking/含早餐。頂樓有大浴場",
+                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7" // Placeholder
+                        }
                     ]
                 },
                 {
                     id: 10,
                     date: "12/07 (日)",
-                    location: "岡山市區 ➔ 返程",
+                    location: "岡山 (雙方案)",
                     mainCity: "岡山",
                     spots: [
-                        { time: "10:00", name: "吉備津神社", type: "sight", note: "桃太郎傳說原型" },
-                        { time: "13:00", name: "最後採買", type: "shop", note: "AEON MALL 或 岡山車站" },
-                        { time: "15:30", name: "前往岡山機場", type: "transport", note: "還車，搭乘 IT263 返回" }
+                        {
+                            time: "09:00",
+                            name: "方案選擇",
+                            type: "transport",
+                            note: "請依當日體力與喜好選擇方案 A 或 B",
+                            tags: ["自由行"]
+                        },
+                        { 
+                            time: "A", 
+                            name: "方案 A：瀨戶內海與丹寧", 
+                            type: "sight", 
+                            note: "適合喜歡工藝、看海的人",
+                            subSpots: [
+                                {
+                                    name: "兒島牛仔褲街",
+                                    note: "日本牛仔褲發源地 (車程約50分)",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Kojima+Jeans+Street"
+                                },
+                                {
+                                    name: "鷲羽山展望台",
+                                    note: "眺望瀨戶大橋與夕陽絕景",
+                                    type: "sight",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Washuzan+Observatory"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "B", 
+                            name: "方案 B：市區散策與採購", 
+                            type: "sight", 
+                            note: "適合想輕鬆逛街買伴手禮的人",
+                            subSpots: [
+                                {
+                                    name: "岡山表町商店街",
+                                    note: "昭和風情老街，有天滿屋百貨",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Omotecho+Shopping+Street+Okayama"
+                                },
+                                {
+                                    name: "AEON Mall 岡山",
+                                    note: "西日本最大級旗艦店，非常好買",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=AEON+MALL+Okayama"
+                                }
+                            ]
+                        },
+                        {
+                            time: "12:30",
+                            name: "午餐推薦",
+                            type: "food",
+                            note: "依方案選擇",
+                            subSpots: [
+                                {
+                                    name: "(A) 兒島海鮮",
+                                    note: "當地著名的章魚料理",
+                                    type: "food"
+                                },
+                                {
+                                    name: "(B) 小豆島拉麵 HISHIO",
+                                    note: "岡山站前店，湯頭濃郁",
+                                    type: "food",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Shodoshima+Ramen+HISHIO+Okayama"
+                                }
+                            ]
+                        },
+                        {
+                            time: "備註",
+                            name: "必買伴手禮清單",
+                            type: "shop",
+                            note: "最後衝刺參考",
+                            customDetails: [
+                                { label: "大手饅頭", value: "岡山人最愛，薄皮紅豆餡" },
+                                { label: "吉備糰子", value: "廣榮堂五味太郎包裝超可愛" },
+                                { label: "倉敷意匠/mt", value: "限定款紙膠帶 (AEON文具區)" },
+                                { label: "水果罐頭", value: "白桃/葡萄罐頭或果凍" },
+                                { label: "中川政七/Hare Machi", value: "AEON內的質感選物店" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 11,
+                    date: "12/08 (一)",
+                    location: "岡山 ➔ 返程",
+                    mainCity: "岡山",
+                    spots: [
+                        { 
+                            time: "09:00", 
+                            name: "悠閒早餐 & Check-out", 
+                            type: "food", 
+                            note: "整理行李，準備返程" 
+                        },
+                        { 
+                            time: "10:30", 
+                            name: "最後補漏", 
+                            type: "shop", 
+                            note: "郵局寄明信片、Bic Camera、AEON補貨",
+                            subSpots: [
+                                {
+                                    name: "岡山中央郵便局",
+                                    note: "寄出旅途回憶",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Okayama+Central+Post+Office"
+                                },
+                                {
+                                    name: "Bic Camera",
+                                    note: "車站對面，電器補貨",
+                                    type: "shop",
+                                    link: "https://www.google.com/maps/search/?api=1&query=Bic+Camera+Okayama"
+                                }
+                            ]
+                        },
+                        { 
+                            time: "12:30", 
+                            name: "前往機場", 
+                            type: "transport", 
+                            note: "開車前往岡山機場 (約30分)",
+                            tags: ["記得加油"]
+                        },
+                        { 
+                            time: "13:30", 
+                            name: "還車手續", 
+                            type: "transport", 
+                            note: "辦理還車 + 接駁車到航廈 (預留30分)" 
+                        },
+                        { 
+                            time: "14:00", 
+                            name: "機場報到", 
+                            type: "plane", 
+                            note: "IT263 17:55 起飛。免稅店可買吉備糰子、大手饅頭", // Updated Flight Time
+                            tags: ["平安回家"]
+                        }
                     ]
                 }
             ],
@@ -1518,3 +1752,5 @@
     </script>
 </body>
 </html>
+
+
