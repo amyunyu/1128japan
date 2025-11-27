@@ -136,7 +136,7 @@
                             time: "18:30", 
                             name: "THE SHIROYAMA TERRACE 津山別邸", 
                             type: "hotel", 
-                            note: "Check-in。溫泉時間13:30-24:00；6:00-10:00" 
+                            note: "一休。含早餐。溫泉時間13:30-24:00；6:00-10:00" 
                         },
                         { 
                             time: "19:30", 
@@ -174,8 +174,8 @@
                     location: "津山深度遊",
                     mainCity: "津山",
                     spots: [
-                        { time: "09:00", name: "津山城 (鶴山公園)", type: "sight", note: "日本百大名城", 
-                            link: "https://maps.app.goo.gl/8XqZ1v8e9r8q9q8q7",
+                        { time: "09:00", name: "津山城。鶴山公園", type: "sight", note: "日本百大名城", 
+                            link: "https://maps.app.goo.gl/NGeKUyr1jAmmgGt4A?g_st=ipc",
                             tags: ["百名城", "賞櫻名所"],
                             customDetails: [
                                 {
@@ -286,7 +286,8 @@
                             time: "08:30",
                             name: "早餐",
                             type: "food",
-                            note: "於飯店內享用早餐，隨後辦理退房"
+                            note: "於飯店內享用早餐，隨後辦理退房",
+                            hideNav: true
                         },
                         { 
                             time: "10:00", 
@@ -294,7 +295,7 @@
                             type: "sight", 
                             note: "漫步暖簾之町",
                             tags: ["詳細情報"],
-                            link: "https://maps.app.goo.gl/HQ1R57tqi9Es1fBg7",
+                            link: "https://maps.app.goo.gl/pk6WwJx69tADD48L6?g_st=ipc",
                             customDetails: [
                                 {
                                     label: "駐車場ナビ",
@@ -322,6 +323,7 @@
                             type: "food", 
                             note: "點擊查看推薦餐廳",
                             tags: ["午餐推薦"],
+                            hideNav: true,
                             subSpots: [
                                 { 
                                     name: "Romantei (ろまん亭)", 
@@ -340,7 +342,7 @@
                         { 
                             time: "14:00", 
                             name: "玉雲大權現宮", 
-                            type: "sight", 
+                            type: "sight",
                             link: "https://maps.app.goo.gl/X78GbGZwaLAr2VWb6",
                             tags: ["能量景點"],
                             customDetails: [
@@ -396,7 +398,8 @@
                             time: "08:30", 
                             name: "早餐 & 退房", 
                             type: "food", 
-                            note: "於飯店享用早餐後退房" 
+                            note: "於飯店享用早餐後退房",
+                            hideNav: true
                         },
                         { 
                             time: "09:30", 
@@ -981,6 +984,16 @@
                                     highlight: true
                                 },
                                 {
+                                    label: "★ 如竹堂",
+                                    value: "紙膠帶天堂",
+                                    linkUrl: "https://maps.app.goo.gl/AXJ6LaZy3kD2uz4CA"
+                                },
+                                {
+                                    label: "倉敷帆布",
+                                    value: "百年帆布老店",
+                                    linkUrl: "https://maps.app.goo.gl/s8Vdqdhf2kdBNYSU7"
+                                },
+                                {
                                     label: "蟲文庫",
                                     value: "古民家獨立書店",
                                     linkUrl: "https://maps.app.goo.gl/rfmo9BQUQkAq42UV6"
@@ -1053,7 +1066,7 @@
                                 {
                                     label: "2. 民藝茶屋 新粹 (Shinsui)",
                                     icon: <Icons.Utensils className="w-4 h-4" />,
-                                    value: "【風格】關東煮與日本酒\n【推薦理由】掛著紅燈籠的溫暖小店。12月的夜晚最適合圍著吧台吃熱騰騰的關東煮配地酒，暖胃首選。",
+                                    value: "【風格】關東煮與日本酒\n【推薦理由】掛著紅燈籠的溫馨小店。12月的夜晚最適合圍著吧台吃熱騰騰的關東煮配地酒，暖胃首選。",
                                     links: [
                                         { name: "地圖導航", url: "https://www.google.com/maps/search/?api=1&query=Mingei+Chaya+Shinsui+Kurashiki" }
                                     ]
@@ -1219,7 +1232,7 @@
                 {
                     id: 10,
                     date: "12/07 (日)",
-                    location: "岡山。雙方案", // <-- Day 10 標題已更新
+                    location: "岡山。雙方案",
                     mainCity: "岡山",
                     spots: [
                         {
@@ -1410,7 +1423,8 @@
                             name: "前往機場", 
                             type: "transport", 
                             note: "搭乘機場巴士前往岡山機場 (約30分)",
-                            tags: ["平安回家"]
+                            tags: ["平安回家"],
+                            link: "https://maps.app.goo.gl/tikHVQNtbPPYGsWn7?g_st=ipc"
                         },
                         { 
                             time: "14:00", 
@@ -1819,59 +1833,8 @@
                             className="inline-flex items-center text-[#2E4B71] text-sm font-serif border border-[#e0d8cf] px-6 py-2.5 rounded-full hover:bg-[#eaf0f6] transition-colors shadow-sm bg-white"
                         >
                             <Icons.ArrowLeft className="w-4 h-4 mr-2" />
-                            返回當日行程
+                            返回日程總覽
                         </button>
-                    </div>
-                </div>
-            );
-        };
-
-        const DayDetailView = ({ day, onBack, weatherInfo }) => {
-            const [selectedSpot, setSelectedSpot] = useState(null);
-
-            useEffect(() => { window.scrollTo(0, 0); }, [day]);
-            
-            if (selectedSpot) {
-                return <SpotDetailView spot={selectedSpot} onBack={() => setSelectedSpot(null)} />;
-            }
-            
-            const { weather, temp, error } = weatherInfo || { weather: 'loading', temp: '...' };
-
-            return (
-                <div className="min-h-screen bg-[#fcfaf2] fade-in">
-                    <DetailHeader title={day.date} subtitle={`DAY ${day.id}`} onBack={onBack} />
-
-                    <div className="px-4 pb-24">
-                        <div className="bg-white rounded-lg shadow-sm border border-[#e0d8cf] p-5 mb-6 relative">
-                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#e0d8cf]">
-                                <div className="flex items-center text-[#2b2b2b] font-bold font-serif text-lg">
-                                    <Icons.MapPin className="w-5 h-5 mr-2 text-[#2E4B71]" />
-                                    {day.location}
-                                </div>
-                                <WeatherBadge type={weather} temp={temp} error={error} /> 
-                            </div>
-                            
-                            <div className="pt-2">
-                                {day.spots.map((spot, index) => (
-                                    <SpotCard 
-                                        key={index} 
-                                        spot={spot} 
-                                        onClick={() => setSelectedSpot(spot)} 
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Back Button */}
-                        <div className="mt-6 mb-8 text-center">
-                            <button 
-                                onClick={onBack}
-                                className="inline-flex items-center text-[#2E4B71] text-sm font-serif border border-[#e0d8cf] px-6 py-2.5 rounded-full hover:bg-[#eaf0f6] transition-colors shadow-sm bg-white"
-                            >
-                                <Icons.ArrowLeft className="w-4 h-4 mr-2" />
-                                返回日程總覽
-                            </button>
-                        </div>
                     </div>
                 </div>
             );
@@ -2035,4 +1998,5 @@
     </script>
 </body>
 </html>
+
 
