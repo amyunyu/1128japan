@@ -929,8 +929,8 @@
                                 },
                                 { 
                                     name: "星巴克 蔦屋書店高梁市圖書館店", 
-                                    note: "最美圖書館，適合輕食休憩", 
                                     type: "coffee",
+                                    note: "最美圖書館，適合輕食休憩", 
                                     link: "https://maps.app.goo.gl/bVUqFZLL7xRHajnVA" // Updated Link
                                 }
                             ]
@@ -1353,34 +1353,34 @@
             // 新增 Highlights 數據結構
             highlights: [
                 { 
-                    icon: <Icons.Star className="w-5 h-5 text-yellow-600" />,
+                    icon: <Icons.Shrine className="w-5 h-5" style={{ color: '#2E4B71' }} />,
+                    title: "出雲大社：獨特參拜與結緣",
+                    note: "日本結緣之神總社，體驗獨有的「二禮、四拍手、一禮」儀式，並在神在月感受八百萬神明的氣場。"
+                },
+                { 
+                    icon: <Icons.Zap className="w-5 h-5" style={{ color: '#000000' }} />,
+                    title: "經典烏城：岡山城",
+                    note: "岡山地標！稀有的黑色外牆，與後樂園相映成趣。天守閣1樓設有備前燒工房。"
+                },
+                { 
+                    icon: <Icons.Star className="w-5 h-5" style={{ color: '#D97706' }} />,
                     title: "必去名城：國寶松江城",
                     note: "山陰唯一的國寶天守，搭配堀川遊船，感受千鳥城的雄偉與歷史。"
                 },
                 { 
-                    icon: <Icons.Heart className="w-5 h-5 text-[#BC412B]" />,
-                    title: "神話之旅：出雲大社",
-                    note: "日本結緣之神總社，體驗二禮四拍手一禮的獨特參拜儀式，並在稻佐之濱觀賞夕陽。"
+                    icon: <Icons.Utensils className="w-5 h-5" style={{ color: '#BC412B' }} />,
+                    title: "特色美食：出雲蕎麥麵",
+                    note: "必吃日本三大蕎麥麵之一（割子/釜揚），也是冬季松葉蟹料理 (出雲/松江) 的最佳品嚐地！"
                 },
                 { 
-                    icon: <Icons.Flower2 className="w-5 h-5 text-green-700" />,
+                    icon: <Icons.Flower2 className="w-5 h-5" style={{ color: '#047857' }} />,
                     title: "日本一庭園：足立美術館",
                     note: "連續多年蟬聯日本第一的枯山水庭園，庭園即是畫作，兼有橫山大觀的珍貴畫作收藏。"
                 },
                 { 
-                    icon: <Icons.Zap className="w-5 h-5 text-red-700" />,
-                    title: "紅銅色老街：吹屋故鄉村",
-                    note: "獨特的弁柄（紅銅色）老街，彷彿穿越時空，是攝影愛好者的天堂。"
-                },
-                { 
-                    icon: <Icons.MapPin className="w-5 h-5 text-[#2E4B71]" />,
-                    title: "白壁之町：倉敷美觀地區",
-                    note: "最具江戶風情的白壁街道，兼具文青雜貨、百年帆布與備前燒工藝的購物樂趣。"
-                },
-                { 
-                    icon: <Icons.Utensils className="w-5 h-5 text-[#8F5A3C]" />,
-                    title: "美食重點：松葉蟹與豬排丼",
-                    note: "冬季限定的松葉蟹料理 (出雲/松江) 與岡山名物多蜜醬豬排丼，滿足口腹之慾。"
+                    icon: <Icons.MapPin className="w-5 h-5" style={{ color: '#2E4B71' }} />,
+                    title: "古色古香：吹屋與倉敷老街",
+                    note: "紅銅色的吹屋故鄉村和白壁之町倉敷美觀地區，是最佳的歷史散策與購物地點。"
                 }
             ]
         };
@@ -1612,6 +1612,13 @@
             </div>
         );
 
+        // Utility to render an icon from a string name and size
+        const renderDetailIcon = (name, sizeClass = 'w-4 h-4', colorClass = 'text-[#2E4B71]') => {
+            const IconComponent = Icons[name];
+            if (!IconComponent) return null;
+            return <IconComponent className={`${sizeClass} ${colorClass}`} />;
+        };
+
         const SpotDetailView = ({ spot, onBack }) => {
             useEffect(() => { window.scrollTo(0, 0); }, []);
             const [activeSubPage, setActiveSubPage] = useState(null);
@@ -1650,9 +1657,6 @@
                     </div>
                 );
             }
-
-
-            const hasFoodOrDetail = spot.subSpots?.length > 0 || spot.customDetails?.length > 0 || spot.customDetails?.some(d => d.subPage);
 
             return (
                 <div className="pb-24 min-h-screen bg-[#fcfaf2] fade-in">
