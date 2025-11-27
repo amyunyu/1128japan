@@ -7,7 +7,7 @@
     
     <!-- Favicon & App Icon (神話與結緣・注連繩概念) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%232E4B71%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 stroke=%22%23d4a373%22 stroke-width=%226%22 fill=%22none%22/><path d=%22M50 30c-8.3 0-15 6.7-15 15 0 9 15 25 15 25s15-16 15-25c0-8.3-6.7-15-15-15zm0 20a5 5 0 1 1 0-10 5 5 0 0 1 0 10z%22 fill=%22%23BC412B%22/></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%232E4B71%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 stroke=%22%23d4a373%22 stroke-width=%226%22 fill=%22none%22/><path d=%22M50 30c-8.3 0-15 6.7-15 15 0 9 15 25 15 25s15-16 15-25c0-8.3-6.7-15-15-15zm0 20a5 5 0 1 1 0-10 5 5 0 0 1 0 10z%22 fill=%22%23BC412B%22/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%232E4B71%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 stroke=%22%23d4a373%22 stroke-width=%226%22 fill=%22none%22/><path d=%22M50 30c-8.3 0-15 6.7-15 15 0 9 15 25 15 25s15-16 15-25c0-8.3-6.7-15-15-15zm0 20a5 5 0 1 1 0-10 5 5 0 0 1 0 10z%22 fill=%23BC412B%22/></svg>">
 
     <!-- 載入 React 核心 -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -342,7 +342,7 @@
                         { 
                             time: "14:00", 
                             name: "玉雲大權現宮", 
-                            type: "sight",
+                            type: "sight", 
                             link: "https://maps.app.goo.gl/X78GbGZwaLAr2VWb6",
                             tags: ["能量景點"],
                             customDetails: [
@@ -1833,8 +1833,59 @@
                             className="inline-flex items-center text-[#2E4B71] text-sm font-serif border border-[#e0d8cf] px-6 py-2.5 rounded-full hover:bg-[#eaf0f6] transition-colors shadow-sm bg-white"
                         >
                             <Icons.ArrowLeft className="w-4 h-4 mr-2" />
-                            返回日程總覽
+                            返回當日行程
                         </button>
+                    </div>
+                </div>
+            );
+        };
+
+        const DayDetailView = ({ day, onBack, weatherInfo }) => {
+            const [selectedSpot, setSelectedSpot] = useState(null);
+
+            useEffect(() => { window.scrollTo(0, 0); }, [day]);
+            
+            if (selectedSpot) {
+                return <SpotDetailView spot={selectedSpot} onBack={() => setSelectedSpot(null)} />;
+            }
+            
+            const { weather, temp, error } = weatherInfo || { weather: 'loading', temp: '...' };
+
+            return (
+                <div className="min-h-screen bg-[#fcfaf2] fade-in">
+                    <DetailHeader title={day.date} subtitle={`DAY ${day.id}`} onBack={onBack} />
+
+                    <div className="px-4 pb-24">
+                        <div className="bg-white rounded-lg shadow-sm border border-[#e0d8cf] p-5 mb-6 relative">
+                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#e0d8cf]">
+                                <div className="flex items-center text-[#2b2b2b] font-bold font-serif text-lg">
+                                    <Icons.MapPin className="w-5 h-5 mr-2 text-[#2E4B71]" />
+                                    {day.location}
+                                </div>
+                                <WeatherBadge type={weather} temp={temp} error={error} /> 
+                            </div>
+                            
+                            <div className="pt-2">
+                                {day.spots.map((spot, index) => (
+                                    <SpotCard 
+                                        key={index} 
+                                        spot={spot} 
+                                        onClick={() => setSelectedSpot(spot)} 
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Back Button */}
+                        <div className="mt-6 mb-8 text-center">
+                            <button 
+                                onClick={onBack}
+                                className="inline-flex items-center text-[#2E4B71] text-sm font-serif border border-[#e0d8cf] px-6 py-2.5 rounded-full hover:bg-[#eaf0f6] transition-colors shadow-sm bg-white"
+                            >
+                                <Icons.ArrowLeft className="w-4 h-4 mr-2" />
+                                返回日程總覽
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
@@ -1998,5 +2049,3 @@
     </script>
 </body>
 </html>
-
-
